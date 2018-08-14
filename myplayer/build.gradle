@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+
 android {
     compileSdkVersion 28
 
@@ -48,5 +49,9 @@ dependencies {
     // ExoPlayer as IMediaPlayer: optional, experimental
     implementation 'tv.danmaku.ijk.media:ijkplayer-exo:0.8.8'
 
-
+    //dagger2
+    implementation 'com.google.dagger:dagger:2.4'
+    annotationProcessor 'com.google.dagger:dagger-compiler:2.4'
+    //java注解
+    implementation 'org.glassfish:javax.annotation:10.0-b28'
 }
