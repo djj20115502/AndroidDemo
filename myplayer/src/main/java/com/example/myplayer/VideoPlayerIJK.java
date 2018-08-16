@@ -132,26 +132,25 @@ public class VideoPlayerIJK extends FrameLayout {
      * 创建一个新的player
      */
     private void createPlayer() {
-        if (mMediaPlayer != null) {
+        if (mMediaPlayer == null) {
+            IjkMediaPlayer ijkMediaPlayer = new IjkMediaPlayer();
+            ijkMediaPlayer.native_setLogLevel(IjkMediaPlayer.IJK_LOG_DEBUG);
+            ijkMediaPlayer.setOption(IjkMediaPlayer.OPT_CATEGORY_PLAYER, "mediacodec", 1);
+            mMediaPlayer = ijkMediaPlayer;
+            if (listener != null) {
+                mMediaPlayer.setOnPreparedListener(listener);
+                mMediaPlayer.setOnInfoListener(listener);
+                mMediaPlayer.setOnSeekCompleteListener(listener);
+                mMediaPlayer.setOnBufferingUpdateListener(listener);
+                mMediaPlayer.setOnErrorListener(listener);
+            }
+        } else {
             mMediaPlayer.stop();
             mMediaPlayer.setDisplay(null);
             mMediaPlayer.release();
         }
-        IjkMediaPlayer ijkMediaPlayer = new IjkMediaPlayer();
-        ijkMediaPlayer.native_setLogLevel(IjkMediaPlayer.IJK_LOG_DEBUG);
 
-//        //开启硬解码
-        ijkMediaPlayer.setOption(IjkMediaPlayer.OPT_CATEGORY_PLAYER, "mediacodec", 1);
 
-        mMediaPlayer = ijkMediaPlayer;
-
-        if (listener != null) {
-            mMediaPlayer.setOnPreparedListener(listener);
-            mMediaPlayer.setOnInfoListener(listener);
-            mMediaPlayer.setOnSeekCompleteListener(listener);
-            mMediaPlayer.setOnBufferingUpdateListener(listener);
-            mMediaPlayer.setOnErrorListener(listener);
-        }
     }
 
     public void setListener(VideoPlayerListener listener) {

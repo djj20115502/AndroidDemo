@@ -27,6 +27,7 @@ public class MainActivity extends Activity implements PlayNativeMovie.ActivityRe
     VideoPlayerIJK ijkPlayer;
     PlayNativeMovie playNativeMovie;
     private static final String PATH = "http://221.228.226.23/11/t/j/v/b/tjvbwspwhqdmgouolposcsfafpedmb/sh.yinyuetai.com/691201536EE4912BF7E4F1E2C67B8119.mp4";
+    private static final String PATH2 = "http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,6 +102,12 @@ public class MainActivity extends Activity implements PlayNativeMovie.ActivityRe
                     playNativeMovie = new PlayNativeMovie(this, this);
                 }
                 playNativeMovie.launchSelectVideo();
+                break;
+            case R.id.play_1:
+                loadVideo(PATH);
+                break;
+            case R.id.play_2:
+                loadVideo(PATH2);
                 break;
         }
     }
