@@ -25,7 +25,7 @@ import tv.danmaku.ijk.media.player.IjkMediaPlayer;
 public class MainActivity extends Activity {
     VideoPlayerIJK ijkPlayer;
 
-    private static final String PATH="http://221.228.226.23/11/t/j/v/b/tjvbwspwhqdmgouolposcsfafpedmb/sh.yinyuetai.com/691201536EE4912BF7E4F1E2C67B8119.mp4";
+    private static final String PATH = "http://221.228.226.23/11/t/j/v/b/tjvbwspwhqdmgouolposcsfafpedmb/sh.yinyuetai.com/691201536EE4912BF7E4F1E2C67B8119.mp4";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,11 +96,11 @@ public class MainActivity extends Activity {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.floating_button:
-//                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-//                intent.setType("*/*"); //选择视频 （mp4 3gp 是android支持的视频格式）
-//                intent.addCategory(Intent.CATEGORY_OPENABLE);
-//                startActivityForResult(intent, 1);
-                loadVideo(PATH);
+                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+                intent.setType("*/*"); //选择视频 （mp4 3gp 是android支持的视频格式）
+                intent.addCategory(Intent.CATEGORY_OPENABLE);
+                startActivityForResult(intent, 1);
+//                loadVideo(PATH);
                 break;
         }
     }
@@ -146,59 +146,59 @@ public class MainActivity extends Activity {
     @SuppressLint("NewApi")
     public String getPath(final Context context, final Uri uri) {
 
-        final boolean isKitKat = Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT;
+    final boolean isKitKat = Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT;
 
-        // DocumentProvider
-        if (isKitKat && DocumentsContract.isDocumentUri(context, uri)) {
-            // ExternalStorageProvider
-            if (isExternalStorageDocument(uri)) {
-                final String docId = DocumentsContract.getDocumentId(uri);
-                final String[] split = docId.split(":");
-                final String type = split[0];
+    // DocumentProvider
+    if (isKitKat && DocumentsContract.isDocumentUri(context, uri)) {
+    // ExternalStorageProvider
+    if (isExternalStorageDocument(uri)) {
+    final String docId = DocumentsContract.getDocumentId(uri);
+    final String[] split = docId.split(":");
+    final String type = split[0];
 
-                if ("primary".equalsIgnoreCase(type)) {
-                    return Environment.getExternalStorageDirectory() + "/" + split[1];
-                }
-            }
-            // DownloadsProvider
-            else if (isDownloadsDocument(uri)) {
+    if ("primary".equalsIgnoreCase(type)) {
+    return Environment.getExternalStorageDirectory() + "/" + split[1];
+    }
+    }
+    // DownloadsProvider
+    else if (isDownloadsDocument(uri)) {
 
-                final String id = DocumentsContract.getDocumentId(uri);
-                final Uri contentUri = ContentUris.withAppendedId(
-                        Uri.parse("content://downloads/public_downloads"), Long.valueOf(id));
+    final String id = DocumentsContract.getDocumentId(uri);
+    final Uri contentUri = ContentUris.withAppendedId(
+    Uri.parse("content://downloads/public_downloads"), Long.valueOf(id));
 
-                return getDataColumn(context, contentUri, null, null);
-            }
-            // MediaProvider
-            else if (isMediaDocument(uri)) {
-                final String docId = DocumentsContract.getDocumentId(uri);
-                final String[] split = docId.split(":");
-                final String type = split[0];
+    return getDataColumn(context, contentUri, null, null);
+    }
+    // MediaProvider
+    else if (isMediaDocument(uri)) {
+    final String docId = DocumentsContract.getDocumentId(uri);
+    final String[] split = docId.split(":");
+    final String type = split[0];
 
-                Uri contentUri = null;
-                if ("image".equals(type)) {
-                    contentUri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
-                } else if ("video".equals(type)) {
-                    contentUri = MediaStore.Video.Media.EXTERNAL_CONTENT_URI;
-                } else if ("audio".equals(type)) {
-                    contentUri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
-                }
+    Uri contentUri = null;
+    if ("image".equals(type)) {
+    contentUri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
+    } else if ("video".equals(type)) {
+    contentUri = MediaStore.Video.Media.EXTERNAL_CONTENT_URI;
+    } else if ("audio".equals(type)) {
+    contentUri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
+    }
 
-                final String selection = "_id=?";
-                final String[] selectionArgs = new String[]{split[1]};
+    final String selection = "_id=?";
+    final String[] selectionArgs = new String[]{split[1]};
 
-                return getDataColumn(context, contentUri, selection, selectionArgs);
-            }
-        }
-        // MediaStore (and general)
-        else if ("content".equalsIgnoreCase(uri.getScheme())) {
-            return getDataColumn(context, uri, null, null);
-        }
-        // File
-        else if ("file".equalsIgnoreCase(uri.getScheme())) {
-            return uri.getPath();
-        }
-        return null;
+    return getDataColumn(context, contentUri, selection, selectionArgs);
+    }
+    }
+    // MediaStore (and general)
+    else if ("content".equalsIgnoreCase(uri.getScheme())) {
+    return getDataColumn(context, uri, null, null);
+    }
+    // File
+    else if ("file".equalsIgnoreCase(uri.getScheme())) {
+    return uri.getPath();
+    }
+    return null;
     }
 
     /**

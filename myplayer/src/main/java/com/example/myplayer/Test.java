@@ -12,16 +12,15 @@ public class Test {
     public static void main(String[] m) {
 //        A a = new A();
 //        a.mainPresenter.printName();
-
     }
-
 
     public static class A {
         @Inject
         MainPresenter mainPresenter;
-        public A(){
 
-         }
+        public A() {
+
+        }
 
     }
 
