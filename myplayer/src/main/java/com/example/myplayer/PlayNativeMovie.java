@@ -14,7 +14,7 @@ import android.provider.MediaStore;
 import android.widget.Toast;
 
 
-public class PlayNativeMoive {
+public class PlayNativeMovie {
 
     interface ActivityResult {
         void play(String path);
@@ -22,12 +22,13 @@ public class PlayNativeMoive {
 
     private final int REQUEST_CODE = 1_119;
     private final String VIDEO_TYPE = "*/*";
+    private final String FILE = "file";
+    private final String TAG = PlayNativeMovie.class.getSimpleName();
+
     Activity activity;
     ActivityResult activityResult;
 
-    private final String TAG = PlayNativeMoive.class.getSimpleName();
-
-    public PlayNativeMoive(ActivityResult activityResult, Activity activity) {
+    public PlayNativeMovie(ActivityResult activityResult, Activity activity) {
         this.activity = activity;
         this.activityResult = activityResult;
 
@@ -57,9 +58,9 @@ public class PlayNativeMoive {
 
         String path;
         Uri uri = data.getData();
-        if ("file".equalsIgnoreCase(uri.getScheme())) {//使用第三方应用打开
+        if (FILE.equalsIgnoreCase(uri.getScheme())) {//使用第三方应用打开
             path = uri.getPath();
-//                Toast.makeText(this, path + "11111", Toast.LENGTH_SHORT).show();
+            Toast.makeText(activity, path + "11111", Toast.LENGTH_SHORT).show();
             return;
         }
         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {//4.4以后
@@ -74,7 +75,7 @@ public class PlayNativeMoive {
 
     }
 
-    public String getRealPathFromURI(Uri contentUri) {
+    private String getRealPathFromURI(Uri contentUri) {
         String res = null;
         String[] proj = {MediaStore.Images.Media.DATA};
         Cursor cursor = activity.getContentResolver().query(contentUri, proj, null, null, null);
@@ -90,7 +91,7 @@ public class PlayNativeMoive {
      * 专为Android4.4设计的从Uri获取文件绝对路径，以前的方法已不好使
      */
     @SuppressLint("NewApi")
-    public String getPath(final Context context, final Uri uri) {
+    private String getPath(final Context context, final Uri uri) {
 
         final boolean isKitKat = Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT;
 
@@ -151,7 +152,7 @@ public class PlayNativeMoive {
      * @param uri The Uri to check.
      * @return Whether the Uri authority is ExternalStorageProvider.
      */
-    public boolean isExternalStorageDocument(Uri uri) {
+    private boolean isExternalStorageDocument(Uri uri) {
         return "com.android.externalstorage.documents".equals(uri.getAuthority());
     }
 
@@ -159,7 +160,7 @@ public class PlayNativeMoive {
      * @param uri The Uri to check.
      * @return Whether the Uri authority is DownloadsProvider.
      */
-    public boolean isDownloadsDocument(Uri uri) {
+    private boolean isDownloadsDocument(Uri uri) {
         return "com.android.providers.downloads.documents".equals(uri.getAuthority());
     }
 
@@ -167,7 +168,7 @@ public class PlayNativeMoive {
      * @param uri The Uri to check.
      * @return Whether the Uri authority is MediaProvider.
      */
-    public boolean isMediaDocument(Uri uri) {
+    private boolean isMediaDocument(Uri uri) {
         return "com.android.providers.media.documents".equals(uri.getAuthority());
     }
 
@@ -182,8 +183,8 @@ public class PlayNativeMoive {
      * @param selectionArgs (Optional) Selection arguments used in the query.
      * @return The value of the _data column, which is typically a file path.
      */
-    public String getDataColumn(Context context, Uri uri, String selection,
-                                String[] selectionArgs) {
+    private String getDataColumn(Context context, Uri uri, String selection,
+                                 String[] selectionArgs) {
 
         Cursor cursor = null;
         final String column = "_data";
