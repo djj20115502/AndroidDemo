@@ -21,6 +21,19 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    sourceSets {
+        main {
+            res.srcDirs =
+                    [
+                            'src/main/res/layouts/main',
+                            'src/main/res/layouts/coordinatorLayout',
+                            //必须放最后的2个
+                            'src/main/res/layouts',
+                            'src/main/res'
+                    ]
+        }
+    }
+
 }
 
 dependencies {
