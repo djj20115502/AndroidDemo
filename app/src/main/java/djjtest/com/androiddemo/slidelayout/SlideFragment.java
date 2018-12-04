@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -42,6 +43,8 @@ public class SlideFragment extends FragmentAdapter.BaseFragment {
         View v = inflater.inflate(layout_id, container, false);
         binding = DataBindingUtil.bind(v);
         initView();
+        v.setOnTouchListener(onTouchListener);
+        v.setTag(firstcolor);
         return v;
     }
 
@@ -51,13 +54,33 @@ public class SlideFragment extends FragmentAdapter.BaseFragment {
     private void initView() {
         RecyclerView.LayoutManager lm = new LinearLayoutManager(getContext());
         adapter = new MultiTypeAdapter(items);
-        items.add(new ItemViewHolder.Data(0xfff00000));
+        items.add(new ItemViewHolder.Data(firstcolor));
         items.add(new ItemViewHolder.Data(0x33f00ff0));
         items.add(new ItemViewHolder.Data(0x22f00fff));
         items.add(new ItemViewHolder.Data(0x11f0ffff));
         items.add(new ItemViewHolder.Data(0x00f0ffff));
+
         ItemViewHolder.inject(adapter);
         binding.rv.setLayoutManager(lm);
         binding.rv.setAdapter(adapter);
+    }
+
+    int firstcolor;
+
+    public SlideFragment firstColor(int color) {
+        firstcolor = color;
+        return this;
+    }
+
+    View.OnTouchListener onTouchListener=new View.OnTouchListener() {
+        @Override
+        public boolean onTouch(View v, MotionEvent event) {
+            return true;
+        }
+    };
+
+    public SlideFragment onTouchListener(View.OnTouchListener var) {
+        onTouchListener = var;
+        return this;
     }
 }
