@@ -3,6 +3,7 @@
 buildscript {
     ext.kotlin_version = '1.2.51'
     ext.butterknife_version = '8.2.1'
+    ext.supportLibraryVersion = '27.1.1'
 
     repositories {
         google()

@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 
 import java.util.ArrayList;
 
+import djjtest.com.androiddemo.touch.CardTouchListener;
+
 /**
  * Author      :    DongJunJie
  * Date        :    2018/11/30
@@ -18,10 +20,12 @@ import java.util.ArrayList;
 public class FragmentAdapter extends FragmentPagerAdapter {
     ArrayList<BaseFragment> fragmentArrayList;
     Fragment currentFragment;
+    CardTouchListener listener;
 
     public FragmentAdapter(FragmentManager fm, ArrayList<BaseFragment> fragments) {
         super(fm);
         fragmentArrayList = fragments;
+
     }
 
     @Override
@@ -51,7 +55,7 @@ public class FragmentAdapter extends FragmentPagerAdapter {
     public void setPrimaryItem(ViewGroup container, int position, Object object) {
         super.setPrimaryItem(container, position, object);
         currentFragment = (Fragment) object;
-    }
+     }
 
     public Fragment getCurrentPrimaryItem() {
         return currentFragment;

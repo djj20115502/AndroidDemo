@@ -1,13 +1,8 @@
 package djjtest.com.androiddemo.touch;
 
-import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
-
-import djjtest.com.androiddemo.FragmentAdapter;
 
 /**
  * Author      :    DongJunJie
@@ -27,16 +22,16 @@ public class CardTouchListener implements View.OnTouchListener {
     private int touchPosition;
 
 
-    FragmentAdapter pagerAdapter;
 
-    public CardTouchListener(FragmentAdapter viewPager) {
-        this.pagerAdapter = viewPager;
+
+    public CardTouchListener( ) {
+
     }
     boolean is=true;
 
     @Override
     public boolean onTouch(View view, MotionEvent event) {
-        Log.e("djjtest", "onTouch : " +  pagerAdapter.getCurrentPrimaryItem().getView().getTag());
+        Log.e("djjtest", "onTouch : " +  view.getTag());
         Log.e("djjtest", "onTouch : " +  event);
         if(is){
             return true;
@@ -60,10 +55,10 @@ public class CardTouchListener implements View.OnTouchListener {
                 aDownTouchX = x;
                 aDownTouchY = y;
 
-                aPosX = pagerAdapter.getCurrentPrimaryItem().getView().getX();
-                aPosY = pagerAdapter.getCurrentPrimaryItem().getView().getY();
+                aPosX = view.getX();
+                aPosY = view.getY();
 
-                if (y < pagerAdapter.getCurrentPrimaryItem().getView().getHeight() / 2) {
+                if (y < view.getHeight() / 2) {
                     touchPosition = TOUCH_ABOVE;
                 } else {
                     touchPosition = TOUCH_BELOW;
@@ -96,16 +91,16 @@ public class CardTouchListener implements View.OnTouchListener {
                 Log.e("djjtest", "aPosX:" + aPosX + " aPosY" + aPosY
                 );
                 // calculate the rotation degrees
-                float distobjectX = aPosX - pagerAdapter.getCurrentPrimaryItem().getView().getX();
+                float distobjectX = aPosX - view.getX();
                 float rotation = BASE_ROTATION_DEGREES * 2.f * distobjectX / view.getWidth();
                 if (touchPosition == TOUCH_BELOW) {
                     rotation = -rotation;
                 }
 
                 //in this area would be code for doing something with the view as the frame moves.
-                pagerAdapter.getCurrentPrimaryItem().getView().setX(aPosX);
-                pagerAdapter.getCurrentPrimaryItem().getView().setY(aPosY);
-                pagerAdapter.getCurrentPrimaryItem().getView().setRotation(rotation);
+                view.setX(aPosX);
+                view.setY(aPosY);
+                view.setRotation(rotation);
 //                        mFlingListener.onMoveXY(aPosX, aPosY);
 //                        mFlingListener.onScroll(getScrollProgressPercent());
                 break;

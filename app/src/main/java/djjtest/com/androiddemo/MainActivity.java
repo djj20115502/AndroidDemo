@@ -39,6 +39,8 @@ public class MainActivity extends AppCompatActivity {
         initView();
     }
 
+    CardTouchListener cardTouchListener;
+
     private void initView() {
         fragmentArrayList.add(new SlideFragment().firstColor(Color.RED));
         fragmentArrayList.add(new SlideFragment().firstColor(Color.BLUE));
@@ -46,10 +48,29 @@ public class MainActivity extends AppCompatActivity {
         fragmentArrayList.add(new SlideFragment().firstColor(Color.YELLOW));
         fragmentArrayList.add(new SlideFragment().firstColor(Color.GREEN));
         adapter = new FragmentAdapter(getSupportFragmentManager(), fragmentArrayList);
+
+        cardTouchListener = new CardTouchListener();
         binding.viewpager.setAdapter(adapter);
         binding.viewpager.setClipChildren(false);
         binding.viewpager.setPageTransformer(true, new CardTransformer());
         binding.tablayout.setupWithViewPager(binding.viewpager);
-        binding.viewpager.setOnTouchListener(new CardTouchListener(adapter));
+        binding.viewpager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+
+                adapter.getCurrentPrimaryItem().getView().setOnTouchListener(cardTouchListener);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+
     }
 }
