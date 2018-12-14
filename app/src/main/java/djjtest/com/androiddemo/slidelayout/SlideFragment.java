@@ -5,7 +5,6 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,7 +15,6 @@ import java.util.ArrayList;
 import djjtest.com.androiddemo.FragmentAdapter;
 import djjtest.com.androiddemo.R;
 import djjtest.com.androiddemo.databinding.SlideLayoutBinding;
-import djjtest.com.androiddemo.slidelayout.transformer.CardTransformer;
 import djjtest.com.androiddemo.view.BaseFragment;
 
 /**
@@ -30,7 +28,8 @@ public class SlideFragment extends FragmentAdapter.BaseFragment {
     private static final int layout_id = R.layout.slide_layout;
 
     SlideLayoutBinding binding;
-
+    ArrayList<FragmentAdapter.BaseFragment> fragmentArrayList = new ArrayList<>();
+    FragmentAdapter adapter;
 
     @Nullable
     @Override
@@ -41,15 +40,57 @@ public class SlideFragment extends FragmentAdapter.BaseFragment {
         return v;
     }
 
-    ArrayList<FragmentAdapter.BaseFragment> fragmentArrayList = new ArrayList<>();
-    FragmentAdapter adapter;
-
-    CardTouchListener cardTouchListener;
-
-    boolean isSlideLeft = true;
-    boolean isBack = false;
-
     private void initView() {
+
+        adapter = new FragmentAdapter(getFragmentManager(), fragmentArrayList);
+        init();
+        binding.vp.setAdapter(adapter);
+        binding.vp.setClipChildren(false);
+        binding.ty.setupWithViewPager(binding.vp);
+        binding.right.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                binding.vp.performSlipRight(true);
+            }
+        });
+        binding.left.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                binding.vp.performSlipLeft(true);
+            }
+        });
+        binding.vp.setCallBack(new SlideViewPager.CallBack() {
+            @Override
+            public void onLeft() {
+
+            }
+
+            @Override
+            public void onRight() {
+//                Log.e("djjtest", "getCurrentItem " + binding.vp.getCurrentItem() + " fragmentArrayList：" + fragmentArrayList.get(binding.vp.getCurrentItem()).getTitle());
+                Log.e("djjtest", "getCurrentItem " + (binding.vp.getCurrentItem()-1) + " fragmentArrayList：" + fragmentArrayList.get(binding.vp.getCurrentItem()-1).getTitle());
+
+                fragmentArrayList.remove(binding.vp.getCurrentItem() - 1);
+
+                adapter.notifyDataSetChanged();
+
+            }
+
+            @Override
+            public void hasNext(boolean var) {
+                if (!var) {
+                    init();
+                }
+            }
+
+            @Override
+            public void hasUndo(boolean var) {
+                binding.left.setVisibility(var ? View.VISIBLE : View.GONE);
+            }
+        });
+    }
+
+    private void init() {
         fragmentArrayList.add(new BaseFragment().setBackground(Color.RED, "RED"));
         fragmentArrayList.add(new BaseFragment().setBackground(Color.BLUE, "BLUE"));
         fragmentArrayList.add(new BaseFragment().setBackground(Color.BLACK, "BLACK"));
@@ -57,74 +98,6 @@ public class SlideFragment extends FragmentAdapter.BaseFragment {
         fragmentArrayList.add(new BaseFragment().setBackground(Color.GREEN, "GREEN"));
         fragmentArrayList.add(new BaseFragment().setBackground(Color.GRAY, "GRAY"));
         fragmentArrayList.add(new BaseFragment().setBackground(Color.CYAN, "CYAN"));
-        adapter = new FragmentAdapter(getFragmentManager(), fragmentArrayList);
-
-        cardTouchListener = new CardTouchListener(new CardTouchListener.CallBack() {
-            @Override
-            public void slipRight() {
-                performSlipRight();
-            }
-
-            @Override
-            public void slipLeft() {
-                performSlipLeft();
-            }
-        });
-        binding.vp.setAdapter(adapter);
-        binding.vp.setClipChildren(false);
-
-        binding.vp.setPageTransformer(true, new CardTransformer().setCallBack(new CardTransformer.CallBack() {
-            @Override
-            public boolean isSlideLeft() {
-                return isSlideLeft;
-            }
-
-            @Override
-            public boolean isBacK() {
-                return isBack;
-            }
-        }));
-        binding.ty.setupWithViewPager(binding.vp);
-        binding.vp.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-                adapter.getCurrentPrimaryItem().getView().setOnTouchListener(cardTouchListener);
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
-            }
-        });
-        binding.right.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                performSlipRight();
-            }
-        });
-        binding.left.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                performSlipLeft();
-            }
-        });
-    }
-
-
-    private void performSlipLeft() {
-        isSlideLeft = true;
-        Log.e("djjtest", "slipLeft_" + binding.vp.getCurrentItem());
-        binding.vp.setCurrentItem(binding.vp.getCurrentItem() + 1);
-    }
-
-    private void performSlipRight() {
-        Log.e("djjtest", "slipRight_" + binding.vp.getCurrentItem());
-        isSlideLeft = false;
-        binding.vp.setCurrentItem(binding.vp.getCurrentItem() + 1);
+        adapter.notifyDataSetChanged();
     }
 }

@@ -16,11 +16,6 @@ public class CardTouchListener implements View.OnTouchListener {
     private float aPosY;
     private float aDownTouchX;
     private float aDownTouchY;
-    private float BASE_ROTATION_DEGREES = 15f;
-    private final int TOUCH_ABOVE = 0;
-    private final int TOUCH_BELOW = 1;
-
-    private int touchPosition;
     private float aPosX0;
     private float aPosY0;
     CallBack callBack;
@@ -46,13 +41,13 @@ public class CardTouchListener implements View.OnTouchListener {
                 aPosY = view.getY();
                 aPosX0 = aPosX;
                 aPosY0 = aPosY;
-                Log.e("ACTION_DOWN", view.getTag() + "aPosX : " + aPosX+" aPosY"+aPosY);
+                Log.e("ACTION_DOWN", view.getTag() + "aPosX : " + aPosX + " aPosY" + aPosY);
                 break;
 
             case MotionEvent.ACTION_UP:
 
                 actionUp(view, event);
-                if(view.getParent()!=null){
+                if (view.getParent() != null) {
                     view.getParent().requestDisallowInterceptTouchEvent(false);
                 }
 
@@ -70,7 +65,7 @@ public class CardTouchListener implements View.OnTouchListener {
                 aPosX += dx;
                 aPosY += dy;
 
-                Log.e("djjtest", "aDownTouchX:" + aDownTouchX + " dx" + dx+" aPosX"+aPosX+ "  getX:"+event.getX(0));
+                Log.e("djjtest", "aDownTouchX:" + aDownTouchX + " dx" + dx + " aPosX" + aPosX + "  getX:" + event.getX(0));
                 //in this area would be code for doing something with the view as the frame moves.
                 view.setX(aPosX);
                 view.setY(aPosY);
@@ -91,16 +86,19 @@ public class CardTouchListener implements View.OnTouchListener {
     }
 
     private void actionUp(View view, MotionEvent event) {
-        float xmoveLen = view.getX()-aPosX0;
+        float xmoveLen = view.getX() - aPosX0;
         float threshold = view.getWidth() * 0.5f;
         Log.e("djjtest", "xmoveLen:" + xmoveLen + " threshold" + threshold);
         if (xmoveLen < 0 && xmoveLen < -1 * threshold) {
-            callBack.slipLeft();
-            return;
+            if (callBack.slipLeft()) {
+                return;
+            }
+
         }
         if (xmoveLen > 0 && xmoveLen > threshold) {
-            callBack.slipRight();
-            return;
+            if (callBack.slipRight()) {
+                return;
+            }
         }
         reset(view);
     }
@@ -117,13 +115,13 @@ public class CardTouchListener implements View.OnTouchListener {
             public void run() {
                 Log.e("djjtest", "reset xxxxx   " + view.getX() + " yy" + view.getY());
             }
-        },RESET_ANIMATOR_TIME);
+        }, RESET_ANIMATOR_TIME);
     }
 
 
     public interface CallBack {
-        void slipRight();
+        boolean slipRight();
 
-        void slipLeft();
+        boolean slipLeft();
     }
 }
