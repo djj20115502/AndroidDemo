@@ -4,12 +4,11 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
 
-import djjtest.com.androiddemo.touch.CardTouchListener;
+import djjtest.com.androiddemo.slidelayout.CardTouchListener;
 
 /**
  * Author      :    DongJunJie
@@ -40,7 +39,16 @@ public class FragmentAdapter extends FragmentPagerAdapter {
     }
 
     public static abstract class BaseFragment extends Fragment {
-        protected abstract CharSequence getTitle();
+        public String title = "";
+
+        public BaseFragment setTitle(String title) {
+            this.title = title;
+            return this;
+        }
+
+        public CharSequence getTitle() {
+            return title;
+        }
     }
 
 
@@ -55,7 +63,7 @@ public class FragmentAdapter extends FragmentPagerAdapter {
     public void setPrimaryItem(ViewGroup container, int position, Object object) {
         super.setPrimaryItem(container, position, object);
         currentFragment = (Fragment) object;
-     }
+    }
 
     public Fragment getCurrentPrimaryItem() {
         return currentFragment;

@@ -4,16 +4,50 @@
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:clipChildren="false">
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rv"
+        <djjtest.com.androiddemo.slidelayout.SlideViewPager
+            android:id="@+id/vp"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_margin="50dp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/ty"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <android.support.design.widget.TabLayout
+            android:id="@+id/ty"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:textSize="15sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="h,10:1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:tabTextColor="#000000">
+
+        </android.support.design.widget.TabLayout>
+
+        <View
+            android:id="@+id/left"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginBottom="30dp"
+            android:background="@drawable/icon_pay_failure"
+            app:layout_constraintBottom_toTopOf="@+id/ty"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <View
+            android:id="@+id/right"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginBottom="30dp"
+            android:background="@drawable/icon_pay_for_success_n"
+            app:layout_constraintBottom_toTopOf="@+id/ty"
+            app:layout_constraintEnd_toEndOf="parent" />
     </android.support.constraint.ConstraintLayout>
 </layout>

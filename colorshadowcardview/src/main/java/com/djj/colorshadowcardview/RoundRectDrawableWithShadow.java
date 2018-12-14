@@ -32,7 +32,6 @@ import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-import djjtest.com.androiddemo.R;
 
 /**
  * A rounded rectangle drawable which also includes a shadow around.
