@@ -70,9 +70,9 @@ public class SlideFragment extends FragmentAdapter.BaseFragment {
 //                Log.e("djjtest", "getCurrentItem " + binding.vp.getCurrentItem() + " fragmentArrayList：" + fragmentArrayList.get(binding.vp.getCurrentItem()).getTitle());
                 Log.e("djjtest", "getCurrentItem " + (binding.vp.getCurrentItem()-1) + " fragmentArrayList：" + fragmentArrayList.get(binding.vp.getCurrentItem()-1).getTitle());
 
-                fragmentArrayList.remove(binding.vp.getCurrentItem() - 1);
-
-                adapter.notifyDataSetChanged();
+//                fragmentArrayList.remove(binding.vp.getCurrentItem() - 1);
+//
+//                adapter.notifyDataSetChanged();
 
             }
 
