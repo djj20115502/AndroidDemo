@@ -68,19 +68,19 @@ public class SlideFragment extends FragmentAdapter.BaseFragment {
             @Override
             public void onRight() {
 //                Log.e("djjtest", "getCurrentItem " + binding.vp.getCurrentItem() + " fragmentArrayList：" + fragmentArrayList.get(binding.vp.getCurrentItem()).getTitle());
-                Log.e("djjtest", "getCurrentItem " + (binding.vp.getCurrentItem()-1) + " fragmentArrayList：" + fragmentArrayList.get(binding.vp.getCurrentItem()-1).getTitle());
+                Log.e("djjtest", "getCurrentItem " + (binding.vp.getCurrentItem()-1) + " fragmentArrayList：" + fragmentArrayList.get(binding.vp.getCurrentItem()-1).getTitle()+" "+fragmentArrayList.size());
 
-//                fragmentArrayList.remove(binding.vp.getCurrentItem() - 1);
-//
-//                adapter.notifyDataSetChanged();
+                fragmentArrayList.remove(binding.vp.getCurrentItem() - 1);
+
+                adapter.notifyDataSetChanged();
 
             }
 
             @Override
             public void hasNext(boolean var) {
-                if (!var) {
-                    init();
-                }
+//                if (!var) {
+//                    init();
+//                }
             }
 
             @Override
