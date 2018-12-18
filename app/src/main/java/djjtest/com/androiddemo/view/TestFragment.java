@@ -47,15 +47,15 @@ public class TestFragment extends FragmentAdapter.BaseFragment {
         binding.right.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-                Date curDate = new Date(System.currentTimeMillis() + 60 * 1000 * 60);//获取当前时间
+                SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+                Date curDate = new Date(System.currentTimeMillis());//获取当前时间
                 String dataString = formatter.format(curDate);
                 TimeSelector timeSelectorDialog = new TimeSelector(getActivity(), new TimeSelector.ResultHandler() {
                     @Override
                     public void handle(String time) {
                         CommonUtils.log("time", time);
                     }
-                }, "2010-1-1 20:00", dataString);
+                }, "2010-11-10 00:00", "2012-10-20 00:00").setCurrentTime("2011-5-4 00:00");
                 timeSelectorDialog.setScrollUnit(TimeSelector.SCROLLTYPE.YEAR,
                         TimeSelector.SCROLLTYPE.MONTH,
                         TimeSelector.SCROLLTYPE.DAY);

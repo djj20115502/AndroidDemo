@@ -10,6 +10,7 @@ import java.util.ArrayList;
 
 import djjtest.com.androiddemo.databinding.ActivityMainBinding;
 import djjtest.com.androiddemo.slidelayout.SlideFragment;
+import djjtest.com.androiddemo.slidelayout.transformer.GalleryTransformer;
 import djjtest.com.androiddemo.view.TestFragment;
 
 /**
@@ -35,9 +36,10 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void initView() {
-        fragmentArrayList.add(new SlideFragment().setTitle("滑动"));
         fragmentArrayList.add(new TestFragment());
+//        fragmentArrayList.add(new SlideFragment().setTitle("滑动"));
         adapter = new FragmentAdapter(getSupportFragmentManager(), fragmentArrayList);
+        binding.viewpager.setPageTransformer(true, new GalleryTransformer());
         binding.viewpager.setAdapter(adapter);
         binding.viewpager.setClipChildren(false);
         binding.tablayout.setupWithViewPager(binding.viewpager);

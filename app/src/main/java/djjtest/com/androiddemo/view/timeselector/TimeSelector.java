@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 import djjtest.com.androiddemo.R;
+import djjtest.com.androiddemo.utils.CommonUtils;
 
 /**
  * Author      :    DongJunJie
@@ -91,6 +92,14 @@ public class TimeSelector {
         initView();
     }
 
+    private Calendar currentCalendar;
+
+    public TimeSelector setCurrentTime(String currentTime) {
+        currentCalendar = Calendar.getInstance();
+        currentCalendar.setTime(DateUtil.parse(currentTime, FORMAT_STR));
+        return this;
+    }
+
     /**
      * @param context
      * @param startDate
@@ -105,7 +114,7 @@ public class TimeSelector {
     }
 
     public void show() {
-        if (startCalendar.getTime().getTime() >= endCalendar.getTime().getTime()) {
+        if (startCalendar.getTime().getTime() > endCalendar.getTime().getTime()) {
             Toast.makeText(context, "起始时间应小于结束时间", Toast.LENGTH_LONG).show();
             return;
         }
@@ -115,8 +124,6 @@ public class TimeSelector {
         initTimer();
         addListener();
         seletorDialog.show();
-
-
     }
 
     private void initDialog() {
@@ -179,7 +186,6 @@ public class TimeSelector {
         spanDay = (!spanMon) && (startDay != endDay);
         spanHour = (!spanDay) && (startHour != endHour);
         spanMin = (!spanHour) && (startMininute != endMininute);
-        selectedCalender.setTime(startCalendar.getTime());
     }
 
     /**
@@ -189,69 +195,74 @@ public class TimeSelector {
         initArrayList();
 
         if (spanYear) {
-            for (int i = startYear - 10; i <= endYear; i++) { //年减10多显示10年
+            for (int i = startYear; i <= endYear; i++) {
                 year.add(String.valueOf(i));
             }
             for (int i = 1; i <= MAXMONTH; i++) {
-                month.add(fomatTimeUnit(i));
+                month.add(formatTimeUnit(i));
             }
             for (int i = 1; i <= startCalendar.getActualMaximum(Calendar.DAY_OF_MONTH); i++) {
-                day.add(fomatTimeUnit(i));
+                day.add(formatTimeUnit(i));
             }
             for (int i = 0; i <= MAXHOUR; i++) {
-                hour.add(fomatTimeUnit(i));
+                hour.add(formatTimeUnit(i));
             }
             for (int i = 0; i <= MAXMINUTE; i++) {
-                minute.add(fomatTimeUnit(i));
+                minute.add(formatTimeUnit(i));
             }
         } else if (spanMon) {
             year.add(String.valueOf(startYear));
             for (int i = 1; i <= endMonth; i++) {
-                month.add(fomatTimeUnit(i));
+                month.add(formatTimeUnit(i));
             }
             for (int i = 0; i <= startCalendar.getActualMaximum(Calendar.DAY_OF_MONTH); i++) {
-                day.add(fomatTimeUnit(i));
+                day.add(formatTimeUnit(i));
             }
             for (int i = 0; i <= MAXHOUR; i++) {
-                hour.add(fomatTimeUnit(i));
+                hour.add(formatTimeUnit(i));
             }
             for (int i = 0; i <= MAXMINUTE; i++) {
-                minute.add(fomatTimeUnit(i));
+                minute.add(formatTimeUnit(i));
             }
         } else if (spanDay) {
             year.add(String.valueOf(startYear));
-            month.add(fomatTimeUnit(startMonth));
+            month.add(formatTimeUnit(startMonth));
             for (int i = 1; i <= endDay; i++) {
-                day.add(fomatTimeUnit(i));
+                day.add(formatTimeUnit(i));
             }
             for (int i = 0; i <= MAXHOUR; i++) {
-                hour.add(fomatTimeUnit(i));
+                hour.add(formatTimeUnit(i));
             }
             for (int i = 0; i <= MAXMINUTE; i++) {
-                minute.add(fomatTimeUnit(i));
+                minute.add(formatTimeUnit(i));
             }
 
         } else if (spanHour) {
             year.add(String.valueOf(startYear));
-            month.add(fomatTimeUnit(startMonth));
-            day.add(fomatTimeUnit(startDay));
+            month.add(formatTimeUnit(startMonth));
+            day.add(formatTimeUnit(startDay));
             for (int i = 0; i <= endHour; i++) {
-                hour.add(fomatTimeUnit(i));
+                hour.add(formatTimeUnit(i));
             }
             for (int i = 0; i <= MAXMINUTE; i++) {
-                minute.add(fomatTimeUnit(i));
+                minute.add(formatTimeUnit(i));
             }
 
         } else if (spanMin) {
             year.add(String.valueOf(startYear));
-            month.add(fomatTimeUnit(startMonth));
-            day.add(fomatTimeUnit(startDay));
-            hour.add(fomatTimeUnit(startHour));
+            month.add(formatTimeUnit(startMonth));
+            day.add(formatTimeUnit(startDay));
+            hour.add(formatTimeUnit(startHour));
             for (int i = 0; i <= endMininute; i++) {
-                minute.add(fomatTimeUnit(i));
+                minute.add(formatTimeUnit(i));
             }
+        } else {
+            year.add(String.valueOf(startYear));
+            month.add(formatTimeUnit(startMonth));
+            day.add(formatTimeUnit(startDay));
+            hour.add(formatTimeUnit(startHour));
+            minute.add(formatTimeUnit(startMininute));
         }
-
         loadComponent();
 
     }
@@ -306,7 +317,7 @@ public class TimeSelector {
 
     }
 
-    private String fomatTimeUnit(int unit) {
+    private String formatTimeUnit(int unit) {
         return unit < 10 ? "0" + String.valueOf(unit) : String.valueOf(unit);
     }
 
@@ -330,8 +341,6 @@ public class TimeSelector {
             public void onSelect(String text) {
                 selectedCalender.set(Calendar.YEAR, Integer.parseInt(text));
                 monthChange();  //放开为多级联动
-
-
             }
         });
         month_pv.setOnSelectListener(new PickerView.onSelectListener() {
@@ -380,11 +389,15 @@ public class TimeSelector {
         day_pv.setData(day);
         hour_pv.setData(hour);
         minute_pv.setData(minute);
-        year_pv.setSelected(10);//前面减10年 这里加10 显示是当前年
-        month_pv.setSelected(startMonth - 1); //月份是从1月开始  所有要减1
-        day_pv.setSelected(startDay - 1);//日是从1日开始  所有要减1
-        hour_pv.setSelected(startHour);
-        minute_pv.setSelected(startMininute);
+        if (currentCalendar == null) {
+            currentCalendar = startCalendar;
+        }
+        year_pv.setSelected(currentCalendar.get(Calendar.YEAR) - startYear);
+        month_pv.setSelected(currentCalendar.get(Calendar.MONTH));
+        day_pv.setSelected(currentCalendar.get(Calendar.DAY_OF_MONTH) - 1);
+        hour_pv.setSelected(currentCalendar.get(Calendar.HOUR_OF_DAY));
+        minute_pv.setSelected(currentCalendar.get(Calendar.MINUTE));
+        selectedCalender.setTime(currentCalendar.getTime());
         excuteScroll();
     }
 
@@ -400,36 +413,30 @@ public class TimeSelector {
      * 多级联动 月份
      */
     private void monthChange() {
+
         month.clear();
         int selectedYear = selectedCalender.get(Calendar.YEAR);
-        //取消为当前时间以前不显示
-/*        if (selectedYear == startYear) {
-            for (int i = startMonth; i <= MAXMONTH; i++) {
-                month.add(fomatTimeUnit(i));
-            }
-        } else if (selectedYear == endYear) {
-            for (int i = 1; i <= endMonth; i++) {
-                month.add(fomatTimeUnit(i));
-            }
-        } else {
-            for (int i = 1; i <= MAXMONTH; i++) {
-                month.add(fomatTimeUnit(i));
-            }
-        }*/
-        for (int i = 1; i <= MAXMONTH; i++) {
-            month.add(fomatTimeUnit(i));
+        int selectedMonth = selectedCalender.get(Calendar.MONTH);
+        int startMonth = Calendar.JANUARY + 1;
+        int endMonth = Calendar.DECEMBER + 1;
+        if (selectedYear == startCalendar.get(Calendar.YEAR)) {
+            startMonth = startCalendar.get(Calendar.MONTH)+1;
         }
-        selectedCalender.set(Calendar.MONTH, Integer.parseInt(month.get(0)) - 1);
+        if (selectedYear == endCalendar.get(Calendar.YEAR)) {
+            endMonth = endCalendar.get(Calendar.MONTH)+1;
+        }
+        //由于是0-11 这里要切换到1-12
+        for (int i = startMonth ; i <= endMonth ; i++) {
+            month.add(formatTimeUnit(i));
+        }
+        CommonUtils.log("startMonth", startMonth, "endMonth ", endMonth);
+        selectedMonth = Math.min(selectedMonth, endMonth);
+        selectedMonth = Math.max(selectedMonth, startMonth);
+        selectedCalender.set(Calendar.MONTH, selectedMonth);
         month_pv.setData(month);
-        month_pv.setSelected(0);
+        month_pv.setSelected(month.indexOf(formatTimeUnit(selectedMonth)));
         excuteAnimator(ANIMATORDELAY, month_pv);
-        month_pv.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                //dayChange();
-            }
-        }, CHANGEDELAY);
-
+        CommonUtils.log(startCalendar, "\n", endCalendar, "\n", selectedCalender, "\n", selectedMonth, month);
     }
 
     /**
@@ -443,16 +450,16 @@ public class TimeSelector {
 
         if (selectedYear == startYear && selectedMonth == startMonth && selectedDay == startDay) {
             for (int i = startHour; i <= MAXHOUR; i++) {
-                hour.add(fomatTimeUnit(i));
+                hour.add(formatTimeUnit(i));
             }
         } else if (selectedYear == endYear && selectedMonth == endMonth && selectedDay == endDay) {
             for (int i = MINHOUR; i <= endHour; i++) {
-                hour.add(fomatTimeUnit(i));
+                hour.add(formatTimeUnit(i));
             }
         } else {
 
             for (int i = MINHOUR; i <= MAXHOUR; i++) {
-                hour.add(fomatTimeUnit(i));
+                hour.add(formatTimeUnit(i));
             }
 
         }
@@ -490,7 +497,7 @@ public class TimeSelector {
             }
         }*/
         for (int i = 1; i <= selectedCalender.getActualMaximum(Calendar.DAY_OF_MONTH); i++) {
-            day.add(fomatTimeUnit(i));
+            day.add(formatTimeUnit(i));
         }
         selectedCalender.set(Calendar.DAY_OF_MONTH, Integer.parseInt(day.get(0)));
         day_pv.setData(day);
@@ -513,23 +520,23 @@ public class TimeSelector {
 
         if (selectedYear == startYear && selectedMonth == startMonth && selectedDay == startDay && selectedHour == startHour) {
             for (int i = startMininute; i <= MAXMINUTE; i++) {
-                minute.add(fomatTimeUnit(i));
+                minute.add(formatTimeUnit(i));
             }
         } else if (selectedYear == endYear && selectedMonth == endMonth && selectedDay == endDay && selectedHour == endHour) {
             for (int i = MINMINUTE; i <= endMininute; i++) {
-                minute.add(fomatTimeUnit(i));
+                minute.add(formatTimeUnit(i));
             }
         } else if (selectedHour == hour_workStart) {
             for (int i = minute_workStart; i <= MAXMINUTE; i++) {
-                minute.add(fomatTimeUnit(i));
+                minute.add(formatTimeUnit(i));
             }
         } else if (selectedHour == hour_workEnd) {
             for (int i = MINMINUTE; i <= minute_workEnd; i++) {
-                minute.add(fomatTimeUnit(i));
+                minute.add(formatTimeUnit(i));
             }
         } else {
             for (int i = MINMINUTE; i <= MAXMINUTE; i++) {
-                minute.add(fomatTimeUnit(i));
+                minute.add(formatTimeUnit(i));
             }
         }
         selectedCalender.set(Calendar.MINUTE, Integer.parseInt(minute.get(0)));
@@ -558,13 +565,13 @@ public class TimeSelector {
         tv_select.setText(str);
     }
 
-    public int setScrollUnit(SCROLLTYPE... scrolltypes) {
+
+    public TimeSelector setScrollUnit(SCROLLTYPE... scrolltypes) {
         scrollUnits = 0;
         for (SCROLLTYPE scrolltype : scrolltypes) {
             scrollUnits ^= scrolltype.value;
         }
-        return scrollUnits;
+        return this;
     }
-
 
 }
