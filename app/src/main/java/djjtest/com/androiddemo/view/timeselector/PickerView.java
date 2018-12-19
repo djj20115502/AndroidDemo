@@ -32,6 +32,7 @@ public class PickerView  extends View {
      */
     public static final float SPEED = 2;
 
+
     private List<String> mDataList;
     /**
      * 选中的位置，这个位置是mDataList的中心位置，一直不变
@@ -106,6 +107,9 @@ public class PickerView  extends View {
         invalidate();
     }
 
+    public List<String> getmDataList() {
+        return mDataList;
+    }
     /**
      * 选择选中的item的index
      *

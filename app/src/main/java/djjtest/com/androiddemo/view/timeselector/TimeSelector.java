@@ -5,6 +5,7 @@ import android.animation.PropertyValuesHolder;
 import android.app.Dialog;
 import android.content.Context;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
@@ -413,30 +414,58 @@ public class TimeSelector {
      * 多级联动 月份
      */
     private void monthChange() {
-
         month.clear();
         int selectedYear = selectedCalender.get(Calendar.YEAR);
         int selectedMonth = selectedCalender.get(Calendar.MONTH);
-        int startMonth = Calendar.JANUARY + 1;
-        int endMonth = Calendar.DECEMBER + 1;
+        int startMonth = Calendar.JANUARY;
+        int endMonth = Calendar.DECEMBER;
         if (selectedYear == startCalendar.get(Calendar.YEAR)) {
-            startMonth = startCalendar.get(Calendar.MONTH)+1;
+            startMonth = startCalendar.get(Calendar.MONTH);
         }
         if (selectedYear == endCalendar.get(Calendar.YEAR)) {
-            endMonth = endCalendar.get(Calendar.MONTH)+1;
+            endMonth = endCalendar.get(Calendar.MONTH);
         }
-        //由于是0-11 这里要切换到1-12
-        for (int i = startMonth ; i <= endMonth ; i++) {
-            month.add(formatTimeUnit(i));
+        //由于是0-11 显示的时候这里要切换到1-12
+        for (int i = startMonth; i <= endMonth; i++) {
+            month.add(formatTimeUnit(i + 1));
         }
-        CommonUtils.log("startMonth", startMonth, "endMonth ", endMonth);
         selectedMonth = Math.min(selectedMonth, endMonth);
         selectedMonth = Math.max(selectedMonth, startMonth);
         selectedCalender.set(Calendar.MONTH, selectedMonth);
         month_pv.setData(month);
-        month_pv.setSelected(month.indexOf(formatTimeUnit(selectedMonth)));
+        month_pv.setSelected(month.indexOf(formatTimeUnit(selectedMonth + 1)));
+        CommonUtils.log("selectedMonth", selectedMonth, "  ", formatTimeUnit(selectedMonth), "!!", month.indexOf(formatTimeUnit(selectedMonth)));
         excuteAnimator(ANIMATORDELAY, month_pv);
-        CommonUtils.log(startCalendar, "\n", endCalendar, "\n", selectedCalender, "\n", selectedMonth, month);
+
+    }
+
+    /**
+     * 多级联动 日
+     */
+    private void dayChange() {
+        day.clear();
+        int selectedYear = selectedCalender.get(Calendar.YEAR);
+        int selectedMonth = selectedCalender.get(Calendar.MONTH);
+        int selectedDay = selectedCalender.get(Calendar.DAY_OF_MONTH);
+        int theStartDay = 1;
+        int theEndDay = selectedCalender.getActualMaximum(Calendar.DAY_OF_MONTH);
+        if (selectedYear == startCalendar.get(Calendar.YEAR)
+                && selectedMonth == startCalendar.get(Calendar.MONTH)) {
+            theStartDay = startCalendar.get(Calendar.DAY_OF_MONTH);
+        }
+        if (selectedYear == endCalendar.get(Calendar.YEAR)
+                && selectedMonth == endCalendar.get(Calendar.MONTH)) {
+            theEndDay = endCalendar.get(Calendar.DAY_OF_MONTH);
+        }
+        for (int i = theStartDay; i <= theEndDay; i++) {
+            day.add(formatTimeUnit(i));
+        }
+        selectedDay = Math.min(selectedDay, theStartDay);
+        selectedDay = Math.max(selectedDay, theEndDay);
+        selectedCalender.set(Calendar.DAY_OF_MONTH, selectedDay);
+        day_pv.setData(day);
+        day_pv.setSelected(day.indexOf(formatTimeUnit(selectedDay)));
+        excuteAnimator(ANIMATORDELAY, day_pv);
     }
 
     /**
@@ -447,6 +476,7 @@ public class TimeSelector {
         int selectedYear = selectedCalender.get(Calendar.YEAR);
         int selectedMonth = selectedCalender.get(Calendar.MONTH) + 1;
         int selectedDay = selectedCalender.get(Calendar.DAY_OF_MONTH);
+
 
         if (selectedYear == startYear && selectedMonth == startMonth && selectedDay == startDay) {
             for (int i = startHour; i <= MAXHOUR; i++) {
@@ -476,40 +506,6 @@ public class TimeSelector {
 
     }
 
-    /**
-     * 多级联动 日
-     */
-    private void dayChange() {
-        day.clear();
-        int selectedYear = selectedCalender.get(Calendar.YEAR);
-        int selectedMonth = selectedCalender.get(Calendar.MONTH) + 1;
-/*        if (selectedYear == startYear && selectedMonth == startMonth) {
-            for (int i = startDay; i <= selectedCalender.getActualMaximum(Calendar.DAY_OF_MONTH); i++) {
-                day.add(fomatTimeUnit(i));
-            }
-        } else if (selectedYear == endYear && selectedMonth == endMonth) {
-            for (int i = 1; i <= endDay; i++) {
-                day.add(fomatTimeUnit(i));
-            }
-        } else {
-            for (int i = 1; i <= selectedCalender.getActualMaximum(Calendar.DAY_OF_MONTH); i++) {
-                day.add(fomatTimeUnit(i));
-            }
-        }*/
-        for (int i = 1; i <= selectedCalender.getActualMaximum(Calendar.DAY_OF_MONTH); i++) {
-            day.add(formatTimeUnit(i));
-        }
-        selectedCalender.set(Calendar.DAY_OF_MONTH, Integer.parseInt(day.get(0)));
-        day_pv.setData(day);
-        day_pv.setSelected(0);
-        excuteAnimator(ANIMATORDELAY, day_pv);
-        day_pv.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                //hourChange();
-            }
-        }, CHANGEDELAY);
-    }
 
     private void minuteChange() {
         minute.clear();
