@@ -434,7 +434,7 @@ public class TimeSelector {
         selectedCalender.set(Calendar.MONTH, selectedMonth);
         month_pv.setData(month);
         month_pv.setSelected(month.indexOf(formatTimeUnit(selectedMonth + 1)));
-        CommonUtils.log("selectedMonth", selectedMonth, "  ", formatTimeUnit(selectedMonth), "!!", month.indexOf(formatTimeUnit(selectedMonth)));
+//        CommonUtils.log("selectedMonth", selectedMonth, "  ", formatTimeUnit(selectedMonth), "!!", month.indexOf(formatTimeUnit(selectedMonth)));
         excuteAnimator(ANIMATORDELAY, month_pv);
 
     }
@@ -448,7 +448,7 @@ public class TimeSelector {
         int selectedMonth = selectedCalender.get(Calendar.MONTH);
         int selectedDay = selectedCalender.get(Calendar.DAY_OF_MONTH);
         int theStartDay = 1;
-        int theEndDay = selectedCalender.getActualMaximum(Calendar.DAY_OF_MONTH);
+        int theEndDay = selectedCalender.getActualMaximum(Calendar.DATE);
         if (selectedYear == startCalendar.get(Calendar.YEAR)
                 && selectedMonth == startCalendar.get(Calendar.MONTH)) {
             theStartDay = startCalendar.get(Calendar.DAY_OF_MONTH);
@@ -460,8 +460,11 @@ public class TimeSelector {
         for (int i = theStartDay; i <= theEndDay; i++) {
             day.add(formatTimeUnit(i));
         }
-        selectedDay = Math.min(selectedDay, theStartDay);
-        selectedDay = Math.max(selectedDay, theEndDay);
+        CommonUtils.log("selectedMonth", selectedMonth, "  selectedDay", selectedDay  ,"theEndDay",theEndDay );
+        selectedDay = Math.max(selectedDay, theStartDay);
+        selectedDay = Math.min(selectedDay, theEndDay);
+//        CommonUtils.log("selectedDay", selectedDay, "  theStartDay", theStartDay, "theEndDay", theEndDay);
+
         selectedCalender.set(Calendar.DAY_OF_MONTH, selectedDay);
         day_pv.setData(day);
         day_pv.setSelected(day.indexOf(formatTimeUnit(selectedDay)));
