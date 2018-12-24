@@ -1,5 +1,6 @@
 package djjtest.com.androiddemo.utils;
 
+import android.content.res.Resources;
 import android.util.Log;
 
 import djjtest.com.androiddemo.Constants;
@@ -28,4 +29,10 @@ public class CommonUtils {
         }
         Log.e("djjtest", sb.toString());
     }
+
+    public static int dp2px(Resources resources, float dpValue) {
+        final float scale = resources.getDisplayMetrics().density;
+        return (int) (dpValue * scale + 0.5f);
+    }
+
 }
