@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:focusable="true"
+        android:background="@color/white"
+        android:focusableInTouchMode="true"
+        android:orientation="vertical">
+
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:text="颜值"
+            android:textSize="15sp"
+            app:layout_constraintBottom_toBottomOf="@+id/div_line"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView14"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" *"
+            android:textColor="#ff3b2f"
+            android:textSize="15sp"
+            app:layout_constraintBottom_toBottomOf="@+id/div_line"
+            app:layout_constraintStart_toEndOf="@+id/title"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/star_0"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:layout_marginEnd="12dp"
+            android:src="@drawable/icon_pay_failure"
+            app:layout_constraintBottom_toBottomOf="@+id/star_4"
+            app:layout_constraintEnd_toStartOf="@+id/star_1"
+            app:layout_constraintTop_toTopOf="@+id/star_4" />
+
+        <ImageView
+            android:id="@+id/star_1"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:layout_marginEnd="12dp"
+            android:src="@drawable/icon_pay_failure"
+            app:layout_constraintBottom_toBottomOf="@+id/star_4"
+            app:layout_constraintEnd_toStartOf="@+id/star_2"
+            app:layout_constraintTop_toTopOf="@+id/star_4" />
+
+        <ImageView
+            android:id="@+id/star_2"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:layout_marginEnd="12dp"
+            android:src="@drawable/icon_pay_failure"
+            app:layout_constraintBottom_toBottomOf="@+id/star_4"
+            app:layout_constraintEnd_toStartOf="@+id/star_3"
+            app:layout_constraintTop_toTopOf="@+id/star_4" />
+
+        <ImageView
+            android:id="@+id/star_3"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:layout_marginEnd="12dp"
+            android:src="@drawable/icon_pay_failure"
+            app:layout_constraintBottom_toBottomOf="@+id/star_4"
+            app:layout_constraintEnd_toStartOf="@+id/star_4"
+            app:layout_constraintTop_toTopOf="@+id/star_4" />
+
+
+        <ImageView
+            android:id="@+id/star_4"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:layout_marginEnd="15dp"
+            android:src="@drawable/icon_pay_failure"
+            app:layout_constraintBottom_toBottomOf="@+id/div_line"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:id="@+id/div_line"
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_marginTop="50dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/content"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="26dp"
+            android:layout_marginBottom="20dp"
+            android:background="@null"
+            android:gravity="left"
+            android:hint="选车过程中还看了哪些车？最后为什么选这款？ 使用过程中综合体验如何？"
+            android:inputType="none"
+            android:minHeight="60dp"
+            android:textColor="#333333"
+            android:textSize="15sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/div_line" />
+
+
+    </android.support.constraint.ConstraintLayout>
+</layout>

@@ -12,7 +12,7 @@
         <activity android:name=".coordinatorLayout.CoordinatorLayoutActivity">
             <intent-filter>
                 <action android:name="android.intent.action.CoordinatorLayoutActivity" />
-                <action android:name="android.intent.action.MAIN" />
+
 
                 <category android:name="${category}" />
             </intent-filter>

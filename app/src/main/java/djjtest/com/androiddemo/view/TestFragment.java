@@ -9,12 +9,14 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 import djjtest.com.androiddemo.FragmentAdapter;
 import djjtest.com.androiddemo.R;
 import djjtest.com.androiddemo.databinding.TestFragmentBinding;
 import djjtest.com.androiddemo.utils.CommonUtils;
+import djjtest.com.androiddemo.view.timeselector.DateUtil;
 import djjtest.com.androiddemo.view.timeselector.TimeSelector;
 
 /**
@@ -50,10 +52,16 @@ public class TestFragment extends FragmentAdapter.BaseFragment {
                 SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
                 Date curDate = new Date(System.currentTimeMillis());//获取当前时间
                 String dataString = formatter.format(curDate);
-                TimeSelector timeSelectorDialog = new TimeSelector(getActivity(), new TimeSelector.ResultHandler() {
+                TimeSelector timeSelectorDialog = new TimeSelector(getActivity(), new TimeSelector.ResultHandler2() {
+                    @Override
+                    public void handle(Calendar calendar) {
+                        String time = DateUtil.format(calendar.getTime(), "yyyy-MM-dd");
+                        CommonUtils.log("time2", time);
+                    }
+
                     @Override
                     public void handle(String time) {
-                        CommonUtils.log("time", time);
+                        CommonUtils.log("time1", time);
                     }
                 }, "2010-11-10 00:00", "2012-10-20 00:00").setCurrentTime("2011-5-4 00:00");
                 timeSelectorDialog.setScrollUnit(TimeSelector.SCROLLTYPE.YEAR,

@@ -40,8 +40,8 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void initView() {
-//        fragmentArrayList.add(new TestFragment());
-        fragmentArrayList.add(new ItemDecorationFragment());
+        fragmentArrayList.add(new TestFragment());
+//        fragmentArrayList.add(new ItemDecorationFragment());
 //        fragmentArrayList.add(new SlideFragment().setTitle("滑动"));
         adapter = new FragmentAdapter(getSupportFragmentManager(), fragmentArrayList);
         binding.viewpager.setPageTransformer(true, new GalleryTransformer());
