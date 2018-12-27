@@ -63,10 +63,10 @@ public class TestFragment extends FragmentAdapter.BaseFragment {
                     public void handle(String time) {
                         CommonUtils.log("time1", time);
                     }
-                }, "2010-11-10 00:00", "2012-10-20 00:00").setCurrentTime("2011-5-4 00:00");
-                timeSelectorDialog.setScrollUnit(TimeSelector.SCROLLTYPE.YEAR,
-                        TimeSelector.SCROLLTYPE.MONTH,
-                        TimeSelector.SCROLLTYPE.DAY);
+                }, "2010-11-10 06:08", "2012-10-20 8:24").setCurrentTime("2011-5-4 13:00");
+//                timeSelectorDialog.setScrollUnit(TimeSelector.SCROLLTYPE.YEAR,
+//                        TimeSelector.SCROLLTYPE.MONTH,
+//                        TimeSelector.SCROLLTYPE.DAY);
                 timeSelectorDialog.show();
             }
         });
