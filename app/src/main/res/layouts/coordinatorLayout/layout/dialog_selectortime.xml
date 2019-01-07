@@ -72,7 +72,8 @@
                         android:id="@+id/year_pv"
                         android:layout_width="0dp"
                         android:layout_height="160dp"
-                        android:layout_weight="3" />
+                        android:layout_weight="3"
+                        android:tag="year_pv" />
 
                     <TextView
                         android:id="@+id/year_pv_unit"
@@ -88,7 +89,8 @@
                         android:id="@+id/month_pv"
                         android:layout_width="0dp"
                         android:layout_height="160dp"
-                        android:layout_weight="2" />
+                        android:layout_weight="2"
+                        android:tag="month_pv" />
 
                     <TextView
                         android:id="@+id/month_pv_unit"
@@ -104,7 +106,8 @@
                         android:id="@+id/day_pv"
                         android:layout_width="0dp"
                         android:layout_height="160dp"
-                        android:layout_weight="2" />
+                        android:layout_weight="2"
+                        android:tag="day_pv" />
 
                     <TextView
                         android:id="@+id/day_pv_unit"
@@ -120,7 +123,8 @@
                         android:id="@+id/hour_pv"
                         android:layout_width="0dp"
                         android:layout_height="160dp"
-                        android:layout_weight="2" />
+                        android:layout_weight="2"
+                        android:tag="hour_pv" />
 
                     <TextView
                         android:id="@+id/hour_pv_unit"
@@ -136,7 +140,8 @@
                         android:id="@+id/minute_pv"
                         android:layout_width="0dp"
                         android:layout_height="160dp"
-                        android:layout_weight="2" />
+                        android:layout_weight="2"
+                        android:tag="minute_pv" />
 
                     <TextView
                         android:id="@+id/minute_pv_unit"

@@ -206,8 +206,10 @@ public class TimeSelector {
             year.add(String.valueOf(i));
         }
         binding.yearPv.setSelected(year.indexOf(formatTimeUnit(currentCalendar.get(Calendar.YEAR))));
+        binding.yearPv.setCanScroll(year.size() > 1 && (scrollUnits & SCROLLTYPE.YEAR.value) == SCROLLTYPE.YEAR.value);
+
         monthChange();
-        excuteScroll();
+
     }
 
 
@@ -292,6 +294,8 @@ public class TimeSelector {
         if (beforeSelectedMonth != selectedMonth) {
             excuteAnimator(ANIMATORDELAY, binding.monthPv);
         }
+
+        binding.monthPv.setCanScroll(month.size() > 1 && (scrollUnits & SCROLLTYPE.MONTH.value) == SCROLLTYPE.MONTH.value);
         dayChange();
     }
 
@@ -345,6 +349,9 @@ public class TimeSelector {
 
             excuteAnimator(ANIMATORDELAY, binding.dayPv);
         }
+
+        binding.dayPv.setCanScroll(day.size() > 1 && (scrollUnits & SCROLLTYPE.DAY.value) == SCROLLTYPE.DAY.value);
+
         hourChange();
 
     }
@@ -383,6 +390,9 @@ public class TimeSelector {
         if (beforeSelectedHour != selectedHour) {
             excuteAnimator(ANIMATORDELAY, binding.hourPv);
         }
+
+        binding.hourPv.setCanScroll(hour.size() > 1 && (scrollUnits & SCROLLTYPE.HOUR.value) == SCROLLTYPE.HOUR.value);
+
         minuteChange();
     }
 
@@ -427,6 +437,7 @@ public class TimeSelector {
             excuteAnimator(ANIMATORDELAY, binding.minutePv);
         }
 
+        binding.minutePv.setCanScroll(minute.size() > 1 && (scrollUnits & SCROLLTYPE.MINUTE.value) == SCROLLTYPE.MINUTE.value);
     }
 
     private void excuteAnimator(long ANIMATORDELAY, View view) {

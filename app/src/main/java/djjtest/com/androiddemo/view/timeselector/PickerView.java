@@ -14,13 +14,15 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import djjtest.com.androiddemo.utils.CommonUtils;
+
 /**
  * Author      :    DongJunJie
  * Date        :    2018/12/18
  * E-mail      :    dongjunjie.mail@qq.com
  * Description :
  */
-public class PickerView  extends View {
+public class PickerView extends View {
 
     public static final String TAG = "PickerView";
     /**
@@ -110,6 +112,7 @@ public class PickerView  extends View {
     public List<String> getmDataList() {
         return mDataList;
     }
+
     /**
      * 选择选中的item的index
      *
@@ -250,6 +253,7 @@ public class PickerView  extends View {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
+        CommonUtils.log("onTouchEvent", getTag(), event);
         switch (event.getActionMasked()) {
             case MotionEvent.ACTION_DOWN:
                 doDown(event);

@@ -60,7 +60,7 @@ public class ItemDecorationFragment extends FragmentAdapter.BaseFragment {
         for (int i = 0; i < 16; i++) {
             RvItem.Data no_pleased = new RvItem.Data();
             no_pleased
-                    .title("最不满意")
+                    .title("最不满意" + i)
                     .defaultDes("用车过程中，有什么不满意？吐槽一下")
                     .dynamicShowEdit(true)
                     .nestedScrollView(binding.root0)
@@ -83,8 +83,8 @@ public class ItemDecorationFragment extends FragmentAdapter.BaseFragment {
         binding.button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                CommonUtils.log("000 getScrollY",binding.root0.getScrollY());
-                CommonUtils.log("000 getScrollX",binding.root0.getScrollX());
+                CommonUtils.log("000 getScrollY", binding.root0.getScrollY());
+                CommonUtils.log("000 getScrollX", binding.root0.getScrollX());
             }
         });
         ScrollView scrollView;

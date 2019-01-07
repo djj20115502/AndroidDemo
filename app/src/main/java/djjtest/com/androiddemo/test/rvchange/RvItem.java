@@ -1,5 +1,6 @@
 package djjtest.com.androiddemo.test.rvchange;
 
+import android.app.Activity;
 import android.support.annotation.NonNull;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.RecyclerView;
@@ -10,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
+import android.view.ViewTreeObserver;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -94,7 +96,7 @@ public class RvItem extends RecyclerView.ViewHolder {
         }
         data.point = point;
         data.nestedScrollView.setNestedScrollingEnabled(false);
-         CommonUtils.log("1111111", data.nestedScrollView.getScrollY());
+        CommonUtils.log("1111111", data.nestedScrollView.getScrollY());
         if (data.dynamicShowEdit) {
             if (data.point > 0) {
                 content.setVisibility(View.VISIBLE);
@@ -161,8 +163,40 @@ public class RvItem extends RecyclerView.ViewHolder {
         if (data.textWatcher != null) {
             content.addTextChangedListener(data.textWatcher);
         }
+        itemView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                if (data.title.contains("2")) {
+                    setVisibility(false);
+                }
+                itemView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+            }
+        });
+
+
+
     }
 
+    public void setVisibility(boolean isVisible) {
+        CommonUtils.log(itemView.getParent().getClass().getName());
+        if (!(itemView.getParent() instanceof RecyclerView)) {
+            itemView.setVisibility(isVisible ? View.VISIBLE : View.GONE);
+            return;
+        }
+        ViewGroup.LayoutParams param = itemView.getLayoutParams();
+        if (isVisible) {
+            param.height = ViewGroup.LayoutParams.WRAP_CONTENT;
+            param.width = ViewGroup.LayoutParams.MATCH_PARENT;
+            itemView.setVisibility(View.VISIBLE);
+        } else {
+            itemView.setVisibility(View.GONE);
+            param.height = 0;
+            param.width = 0;
+        }
+        itemView.setLayoutParams(param);
+        itemView.getParent().requestLayout();
+
+    }
 
     public static final class Data {
         public int point;

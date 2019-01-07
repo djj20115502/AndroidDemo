@@ -1,7 +1,6 @@
 package djjtest.com.androiddemo;
 
 import android.databinding.DataBindingUtil;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -11,9 +10,7 @@ import com.facebook.drawee.backends.pipeline.Fresco;
 import java.util.ArrayList;
 
 import djjtest.com.androiddemo.databinding.ActivityMainBinding;
-import djjtest.com.androiddemo.slidelayout.SlideFragment;
 import djjtest.com.androiddemo.slidelayout.transformer.GalleryTransformer;
-import djjtest.com.androiddemo.test.itemDecoration.ItemDecorationFragment;
 import djjtest.com.androiddemo.view.TestFragment;
 
 /**
