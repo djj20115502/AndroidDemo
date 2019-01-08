@@ -114,7 +114,7 @@ public class TimeSelector {
             startCalendar.set(Calendar.YEAR, startCalendar.get(Calendar.YEAR) - 10);
         }
         if (currentCalendar == null) {
-            currentCalendar = startCalendar;
+            currentCalendar = (Calendar) startCalendar.clone();
         }
 
         selectedCalender = currentCalendar;
@@ -465,5 +465,4 @@ public class TimeSelector {
         }
         return this;
     }
-
 }

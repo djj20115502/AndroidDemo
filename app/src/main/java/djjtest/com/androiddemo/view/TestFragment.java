@@ -1,9 +1,16 @@
 package djjtest.com.androiddemo.view;
 
 import android.databinding.DataBindingUtil;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.text.Html;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.AbsoluteSizeSpan;
+import android.text.style.ForegroundColorSpan;
+import android.text.style.TypefaceSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -67,9 +74,17 @@ public class TestFragment extends FragmentAdapter.BaseFragment {
                 timeSelectorDialog.setScrollUnit(TimeSelector.SCROLLTYPE.YEAR,
                         TimeSelector.SCROLLTYPE.MONTH,
                         TimeSelector.SCROLLTYPE.DAY)
-                .setJustShowScrollUnit(true);
+                        .setJustShowScrollUnit(true);
                 timeSelectorDialog.show();
             }
         });
+
+        //创建一个SpannableString对象
+        SpannableString sStr = new SpannableString("现金折扣7sdfsdf折");
+        sStr.setSpan(new AbsoluteSizeSpan(15, true), 0, 4, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        sStr.setSpan(new ForegroundColorSpan(0xff999999), 0, 4, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        sStr.setSpan(new AbsoluteSizeSpan(18, true), 4, sStr.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        sStr.setSpan(new ForegroundColorSpan(0xffff7f2c), 4, sStr.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        binding.textView.setText(sStr);
     }
 }

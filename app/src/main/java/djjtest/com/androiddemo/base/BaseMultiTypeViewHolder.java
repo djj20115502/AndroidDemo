@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 
 import djjtest.com.androiddemo.utils.CommonUtils;
 import me.drakeet.multitype.ItemViewProvider;
@@ -21,9 +23,9 @@ import me.drakeet.multitype.MultiTypeAdapter;
  */
 public abstract class BaseMultiTypeViewHolder<T> extends RecyclerView.ViewHolder {
 
-
-    public static <E> MultiTypeAdapter inject(MultiTypeAdapter adapter, final int id, Class<E> bean, final Class<? extends BaseMultiTypeViewHolder<E>> holder) {
-        adapter.register(bean, new ItemViewProvider<E, BaseMultiTypeViewHolder<E>>() {
+    public static <E> MultiTypeAdapter inject(MultiTypeAdapter adapter, final int id, final Class<? extends BaseMultiTypeViewHolder<E>> holder) {
+        Class<E> entityClass = (Class<E>) ((ParameterizedType) holder.getGenericSuperclass()).getActualTypeArguments()[0];
+        adapter.register(entityClass, new ItemViewProvider<E, BaseMultiTypeViewHolder<E>>() {
             @NonNull
             @Override
             protected BaseMultiTypeViewHolder<E> onCreateViewHolder(@NonNull LayoutInflater inflater, @NonNull ViewGroup parent) {

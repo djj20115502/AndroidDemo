@@ -11,6 +11,7 @@ import java.util.ArrayList;
 
 import djjtest.com.androiddemo.databinding.ActivityMainBinding;
 import djjtest.com.androiddemo.slidelayout.transformer.GalleryTransformer;
+import djjtest.com.androiddemo.test.itemDecoration.ItemDecorationFragment;
 import djjtest.com.androiddemo.view.TestFragment;
 
 /**

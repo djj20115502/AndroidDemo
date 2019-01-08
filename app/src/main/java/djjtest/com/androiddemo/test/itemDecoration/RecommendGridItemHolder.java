@@ -20,7 +20,7 @@ public class RecommendGridItemHolder extends BaseMultiTypeViewHolder<RecommendGr
     ItemdecorationItemBinding binding;
 
     public static void inject(MultiTypeAdapter adapter) {
-        BaseMultiTypeViewHolder.inject(adapter, layout_id, RecommendGridItemHolder.Data.class, RecommendGridItemHolder.class);
+        BaseMultiTypeViewHolder.inject(adapter, layout_id , RecommendGridItemHolder.class);
     }
 
     public RecommendGridItemHolder(View itemView) {
