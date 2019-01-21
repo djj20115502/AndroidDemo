@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="holder"
+            type="djjtest.com.androiddemo.view.CustomOnTextChooseDialog.OneTextHolder"/>
+        <variable
+            name="data"
+            type="java.lang.String" />
+    </data>
+
+    <TextView
+        android:onClick="@{()->holder.onClick()}"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:ellipsize="end"
+        android:gravity="center"
+        android:includeFontPadding="false"
+        android:singleLine="true"
+        android:text="@{data}"
+        android:textColor="#000000"
+        android:textSize="15sp" />
+</layout>

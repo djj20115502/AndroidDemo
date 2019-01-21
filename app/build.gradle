@@ -87,4 +87,9 @@ dependencies {
     implementation project(':colorshadowcardview')
     //图片加载
     implementation 'com.facebook.fresco:fresco:0.12.0'
+
+    //弹出框EasyPopup  https://github.com/zyyoona7/EasyPopup
+    implementation('com.github.zyyoona7:EasyPopup:1.1.2') {
+        exclude group: 'com.android.support'
+    }
 }

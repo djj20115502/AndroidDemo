@@ -10,8 +10,6 @@ import com.facebook.drawee.backends.pipeline.Fresco;
 import java.util.ArrayList;
 
 import djjtest.com.androiddemo.databinding.ActivityMainBinding;
-import djjtest.com.androiddemo.slidelayout.transformer.GalleryTransformer;
-import djjtest.com.androiddemo.test.itemDecoration.ItemDecorationFragment;
 import djjtest.com.androiddemo.view.TestFragment;
 
 /**
@@ -42,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
 //        fragmentArrayList.add(new ItemDecorationFragment());
 //        fragmentArrayList.add(new SlideFragment().setTitle("滑动"));
         adapter = new FragmentAdapter(getSupportFragmentManager(), fragmentArrayList);
-        binding.viewpager.setPageTransformer(true, new GalleryTransformer());
+//        binding.viewpager.setPageTransformer(true, new GalleryTransformer());
         binding.viewpager.setAdapter(adapter);
         binding.viewpager.setClipChildren(false);
         binding.tablayout.setupWithViewPager(binding.viewpager);
