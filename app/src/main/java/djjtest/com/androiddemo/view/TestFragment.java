@@ -1,5 +1,6 @@
 package djjtest.com.androiddemo.view;
 
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -28,6 +29,7 @@ import java.util.Date;
 import djjtest.com.androiddemo.FragmentAdapter;
 import djjtest.com.androiddemo.R;
 import djjtest.com.androiddemo.databinding.TestFragmentBinding;
+import djjtest.com.androiddemo.test.TA;
 import djjtest.com.androiddemo.utils.CommonUtils;
 import djjtest.com.androiddemo.utils.TextCenterFormat;
 import djjtest.com.androiddemo.view.timeselector.DateUtil;
@@ -63,8 +65,8 @@ public class TestFragment extends FragmentAdapter.BaseFragment {
         binding.right.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                onClickClass();
+                onClickClass2();
+//                onClickClass();
 
             }
         });
@@ -84,6 +86,15 @@ public class TestFragment extends FragmentAdapter.BaseFragment {
         binding.textView3.setText(TextCenterFormat.formatText("服服",4));
         binding.textView4.setText(TextCenterFormat.formatText("服服服服",4));
         binding.textView5.setText(TextCenterFormat.formatText("服服服服服服",4));
+
+        binding.textView5.setText("sdfsdfs");
+        binding.textView5.post(new Runnable() {
+            @Override
+            public void run() {
+                int ellipsisCount =  binding.textView5.getLayout().getEllipsisCount( binding.textView5.getLineCount() - 1);
+                CommonUtils.log("ellipsisCount",ellipsisCount);
+            }
+        });
         binding.homeEtValidate.setFilters(new InputFilter[]{new InputFilter() {
             @Override
             public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
@@ -93,7 +104,7 @@ public class TestFragment extends FragmentAdapter.BaseFragment {
                 if (dest.toString().contains(".")) {
                     int index = dest.toString().indexOf(".");
                     int length = dest.toString().substring(index).length();
-                    if (length == 3) {
+                    if (length == 2) {
                         return "";
                     }
                 }
@@ -136,7 +147,13 @@ public class TestFragment extends FragmentAdapter.BaseFragment {
         }
         customOnTextChooseDialog.showAtAnchorView(binding.homeEtValidate, YGravity.BELOW, XGravity.ALIGN_RIGHT, 0, 0);
     }
+    public void onClickClass2() {
 
+//        Intent intent=new Intent(getActivity(),TA.class);
+//        getActivity().startActivity(intent);
+        new ScanQrCodeBuilder().makeWindow(getActivity()).show();
+//           NotifyDialog.Builder(getActivity()).build().show();
+    }
     public void clickSimpleDateFormat() {
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         Date curDate = new Date(System.currentTimeMillis());//获取当前时间

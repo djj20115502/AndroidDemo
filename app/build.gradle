@@ -92,4 +92,10 @@ dependencies {
     implementation('com.github.zyyoona7:EasyPopup:1.1.2') {
         exclude group: 'com.android.support'
     }
+
+    //扫码 https://www.2cto.com/kf/201708/667743.html
+    implementation 'me.dm7.barcodescanner:zbar:1.9'
+
+    //导航 https://www.jianshu.com/p/d8a347ed113d
+    implementation 'com.astuetz:pagerslidingtabstrip:1.0.1'
 }

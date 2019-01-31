@@ -163,22 +163,21 @@ public class RvItem extends RecyclerView.ViewHolder {
         if (data.textWatcher != null) {
             content.addTextChangedListener(data.textWatcher);
         }
-        itemView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-            @Override
-            public void onGlobalLayout() {
-                if (data.title.contains("2")) {
-                    setVisibility(false);
-                }
-                itemView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-            }
-        });
-
+//        itemView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+//            @Override
+//            public void onGlobalLayout() {
+//                if (data.title.contains("2")) {
+//                    setVisibility(false);
+//                }
+//                itemView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+//            }
+//        });
 
 
     }
 
     public void setVisibility(boolean isVisible) {
-        CommonUtils.log(itemView.getParent().getClass().getName());
+        CommonUtils.log(itemView.getParent() == null ? "null" : itemView.getParent().getClass().getName());
         if (!(itemView.getParent() instanceof RecyclerView)) {
             itemView.setVisibility(isVisible ? View.VISIBLE : View.GONE);
             return;

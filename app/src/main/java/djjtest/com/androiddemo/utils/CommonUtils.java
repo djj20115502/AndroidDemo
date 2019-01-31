@@ -1,7 +1,11 @@
 package djjtest.com.androiddemo.utils;
 
+import android.content.Context;
 import android.content.res.Resources;
 import android.util.Log;
+import android.widget.Toast;
+
+import java.lang.ref.WeakReference;
 
 import djjtest.com.androiddemo.Constants;
 
@@ -13,6 +17,25 @@ import djjtest.com.androiddemo.Constants;
  */
 public class CommonUtils {
 
+    static WeakReference<Toast> toastWeakReference;
+
+    /**
+     * Toast 提示框
+     *
+     * @param context
+     * @param content
+     */
+    public static void showToast(Context context, String content) {
+
+        Toast toast;
+        if (toastWeakReference == null || toastWeakReference.get() == null) {
+            toast = Toast.makeText(context.getApplicationContext(), content, Toast.LENGTH_SHORT);
+            toastWeakReference = new WeakReference<>(toast);
+        }
+        toast = toastWeakReference.get();
+        toast.setText(content);
+        toast.show();
+    }
     public static void log(Object... objects) {
         if (!Constants.IS_TEST) {
             return;
