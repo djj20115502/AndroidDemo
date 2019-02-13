@@ -2,10 +2,15 @@ package djjtest.com.androiddemo.utils;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.text.InputFilter;
+import android.text.Spanned;
 import android.util.Log;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import java.lang.ref.WeakReference;
+import java.util.Arrays;
+import java.util.List;
 
 import djjtest.com.androiddemo.Constants;
 
@@ -58,4 +63,28 @@ public class CommonUtils {
         return (int) (dpValue * scale + 0.5f);
     }
 
+
+    public static InputFilter[] getIDcardInputFilter(final EditText editText) {
+        String[] IDCARD = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "x", "X",};
+        final List<String> idCardList = Arrays.asList(IDCARD);
+        InputFilter inputFilter = new InputFilter() {
+
+            @Override
+            public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
+                // 返回空字符串，就代表匹配不成功，返回null代表匹配成功
+                for (int i = 0; i < source.toString().length(); i++) {
+                    if (!idCardList.contains(String.valueOf(source.charAt(i)))) {
+                        return "";
+                    }
+                    if (editText.getText().toString().length() < 17) {
+                        if ("x".equals(String.valueOf(source.charAt(i))) || "X".equals(String.valueOf(source.charAt(i)))) {
+                            return "";
+                        }
+                    }
+                }
+                return null;
+            }
+        };
+        return new InputFilter[]{new InputFilter.LengthFilter(18), inputFilter};
+    }
 }
