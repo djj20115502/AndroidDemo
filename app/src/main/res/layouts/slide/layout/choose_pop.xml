@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="holder"
+            type="djjtest.com.androiddemo.view.ChoosePopWindow" />
+    </data>
+
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#4a4a4a4a">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#ffffff"
+            android:layout_gravity="bottom">
+
+
+            <View
+                android:id="@+id/title_bg"
+                android:layout_width="wrap_content"
+                android:layout_height="44dp"
+                android:background="#f5f5f5"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/left_button"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_marginStart="10dp"
+                android:gravity="center"
+                android:onClick="@{()->holder.onClickLeft()}"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:textColor="#666666"
+                android:textSize="17sp"
+                app:layout_constraintBottom_toBottomOf="@+id/title_bg"
+                app:layout_constraintStart_toStartOf="@+id/title_bg"
+                app:layout_constraintTop_toTopOf="@+id/title_bg"
+                tools:text="取消" />
+
+
+            <TextView
+                android:id="@+id/right_button"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_marginEnd="10dp"
+                android:gravity="center"
+                android:onClick="@{()->holder.onClickRight()}"
+                android:paddingStart="10dp"
+
+                android:paddingEnd="10dp"
+                android:textColor="#1fb497"
+                android:textSize="17sp"
+                app:layout_constraintBottom_toBottomOf="@+id/title_bg"
+                app:layout_constraintEnd_toEndOf="@+id/title_bg"
+                app:layout_constraintTop_toTopOf="@+id/title_bg"
+                tools:text="确认" />
+
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_marginTop="15dp"
+                android:background="@android:color/white"
+                app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/title_bg" />
+
+        </android.support.constraint.ConstraintLayout>
+    </FrameLayout>
+</layout>

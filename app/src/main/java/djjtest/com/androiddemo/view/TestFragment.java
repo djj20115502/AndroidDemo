@@ -1,20 +1,11 @@
 package djjtest.com.androiddemo.view;
 
-import android.content.Context;
-import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.graphics.Color;
-import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
-import android.graphics.drawable.GradientDrawable;
-import android.graphics.drawable.ShapeDrawable;
-import android.graphics.drawable.shapes.Shape;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.content.ContextCompat;
-import android.text.Html;
 import android.text.InputFilter;
 import android.text.SpannableString;
 import android.text.Spanned;
@@ -22,8 +13,7 @@ import android.text.style.AbsoluteSizeSpan;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.ImageSpan;
 import android.text.style.StrikethroughSpan;
-import android.text.style.StyleSpan;
-import android.text.style.TypefaceSpan;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,7 +31,6 @@ import java.util.List;
 import djjtest.com.androiddemo.FragmentAdapter;
 import djjtest.com.androiddemo.R;
 import djjtest.com.androiddemo.databinding.TestFragmentBinding;
-import djjtest.com.androiddemo.test.TA;
 import djjtest.com.androiddemo.utils.CommonUtils;
 import djjtest.com.androiddemo.utils.IdCardUtil;
 import djjtest.com.androiddemo.utils.TextCenterFormat;
@@ -73,6 +62,7 @@ public class TestFragment extends FragmentAdapter.BaseFragment {
         binding.setHolder(this);
         initView();
         binding.homeEtValidate.setFilters(CommonUtils.getIDcardInputFilter(binding.homeEtValidate));
+        binding.textView001.setSelected(true);
         return v;
     }
 
@@ -288,7 +278,31 @@ public class TestFragment extends FragmentAdapter.BaseFragment {
 
     }
 
-    public void onClickRight() {
 
+    public void onClickText01() {
+        CommonUtils.showToast(getActivity(), "" + binding.textView001.isSelected());
+        binding.textView001.setSelected(!binding.textView001.isSelected());
+        ArrayList<ChoosePopWindow.OneTextBean> show = new ArrayList<>();
+        for (int i = 0; i < 50; i++) {
+            ChoosePopWindow.OneTextBean bean = new ChoosePopWindow.OneTextBean("" + i);
+            show.add(bean);
+        }
+        new ChoosePopWindow.Builder()
+                .context(getActivity())
+                .showData(show)
+                .callBack(new ChoosePopWindow.CallBack() {
+                    @Override
+                    public void onResult(Object o) {
+                        CommonUtils.showToast(getActivity(), o.toString());
+                    }
+                })
+                .build()
+
+                .showAtLocation(binding.textView001, Gravity.NO_GRAVITY, 0, 0);
+
+    }
+
+    public void onClickRight() {
+        clickSimpleDateFormat();
     }
 }
