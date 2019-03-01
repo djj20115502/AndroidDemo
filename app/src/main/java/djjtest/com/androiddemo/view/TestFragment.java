@@ -315,7 +315,7 @@ public class TestFragment extends FragmentAdapter.BaseFragment {
 
             @Override
             public void onSuccess(List<Test.Bean> data) {
-                CommonUtils.log("onSuccess", data,data.size());
+                CommonUtils.log("onSuccess",  data.size());
             }
 
             @Override

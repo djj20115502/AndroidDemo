@@ -1,6 +1,7 @@
 package com.example.network;
 
 import android.support.v4.app.Fragment;
+import android.util.Log;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -82,6 +83,7 @@ public class Test {
 
                 @Override
                 public void onNext(ResponseMessage<List<Bean>> objectResponseMessage) {
+                    Log.e("objectResponseMessage",objectResponseMessage.md5);
                     if (objectResponseMessage.statusCode == Constants.NetworkStatusCode.SUCCESS) {
                         callBack.onSuccess(objectResponseMessage.data);
                     } else {

@@ -1,5 +1,7 @@
 package com.example.network;
 
+import android.util.Log;
+
 /**
  * Author      :    DongJunJie
  * Date        :    2019/3/1
@@ -8,6 +10,13 @@ package com.example.network;
  */
 public class Constants {
     public static String BASE_URL = "http://car1.i.cacf.cn/";
+    public static boolean showUrl = true;
+    public static boolean showAns = true;
+
+    public static void debug(boolean isDebug) {
+        showUrl = !isDebug;
+        showAns = !isDebug;
+    }
 
     public static interface NetworkStatusCode {
         int SUCCESS = 0;
@@ -22,4 +31,8 @@ public class Constants {
         int STATUS_VERCODEMUCH = 40001;    //获取验证码的次数过于频繁;
         int EXCEED_MSGNUM = 40002;    //  超出每日限制短信条数;
     }
+
+
+
+
 }

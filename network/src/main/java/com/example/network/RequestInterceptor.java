@@ -1,11 +1,6 @@
 package com.example.network;
 
 import android.content.Context;
-import android.content.Intent;
-import android.util.Log;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.IOException;
 
@@ -23,13 +18,14 @@ import okhttp3.ResponseBody;
  * E-mail      :    dongjunjie.mail@qq.com
  * Description :
  */
-public class RequestInterceptor  implements Interceptor {
+public class RequestInterceptor implements Interceptor {
     public static Context appContext;
+
     @Override
     public Response intercept(Chain chain) throws IOException {
         Request oldRequest = chain.request();
         Request.Builder requestBuilder = oldRequest.newBuilder();
-        requestBuilder.addHeader("Vihecle-Type","car");
+        requestBuilder.addHeader("Vihecle-Type", "car");
 //        requestBuilder.header("machine_type","android");
         // 添加head
         //        Headers.Builder headBuilder = oldRequest.headers().newBuilder();
@@ -61,7 +57,7 @@ public class RequestInterceptor  implements Interceptor {
                     stringBuilder.append("&");
                 }
                 String str = stringBuilder.toString();
-                Log.e("RequestInterceptor","All request post parameters:" + str.substring(0, str.length() - 1));
+                HttpLog.logS(Constants.showUrl, "All request post parameters:" + str.substring(0, str.length() - 1));
                 newRequest = requestBuilder.method(oldRequest.method(), formBodyBuilder.build())
                         .build();
             } else {
@@ -88,7 +84,7 @@ public class RequestInterceptor  implements Interceptor {
             //                System.out.println("size:"+stringBuilder.toString());
             //            }
             String str = stringBuilder.toString();
-            Log.e("RequestInterceptor","All request get parameters:" + str);
+            HttpLog.logS(Constants.showUrl, "All request get parameters:" + str);
 
         }
 
@@ -96,26 +92,28 @@ public class RequestInterceptor  implements Interceptor {
         if (response.body() != null) {
             MediaType mediaType = response.body().contentType();
             String body = response.body().string();
-            try {
-                JSONObject json = new JSONObject(body);
-                int  code=  json.optInt("code");
-//                Constants.HTTP_LOGIN_ERROR == code
-//                if(Constants.HTTP_LOGIN_OUT== code){
-//                    if(appContext!=null){
-//                        IOUtils.loginOut(appContext,Constants.KEY_ACCOUNT_FILE);
-//                        Intent toIntent = new Intent(appContext, LoginActivity.class);
-//                        toIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//                        appContext.startActivity(toIntent);
-//                    }
-//                }
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-            Log.e("RequestInterceptor",body);
+            String md5 = HttpFactory.md5(body);
+            body = body.substring(0, body.length() - 1) + ",\"md5\":\"" + md5 + "\"}";
+//            try {
+//                JSONObject json = new JSONObject(body);
+//                int code = json.optInt("code");
+////                Constants.HTTP_LOGIN_ERROR == code
+////                if(Constants.HTTP_LOGIN_OUT== code){
+////                    if(appContext!=null){
+////                        IOUtils.loginOut(appContext,Constants.KEY_ACCOUNT_FILE);
+////                        Intent toIntent = new Intent(appContext, LoginActivity.class);
+////                        toIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+////                        appContext.startActivity(toIntent);
+////                    }
+////                }
+//            } catch (JSONException e) {
+//                e.printStackTrace();
+//            }
+            HttpLog.log(Constants.showAns, body);
             try {
                 return response.newBuilder().body(ResponseBody.create(mediaType, body)).build();
-            }catch (Exception e){
-                String  bodyStr =" {\"code\":501,\"msg\":\"解析失败\",\"data\":{}}";
+            } catch (Exception e) {
+                String bodyStr = " {\"code\":501,\"msg\":\"解析失败\",\"data\":{}}";
                 return response.newBuilder().body(ResponseBody.create(mediaType, bodyStr)).build();
             }
 //            return response.newBuilder().body(ResponseBody.create(mediaType, body)).build();

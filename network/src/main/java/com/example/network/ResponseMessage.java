@@ -19,6 +19,9 @@ public class ResponseMessage<T> implements Serializable {
     @JsonProperty("msg")
     public String statusMessage;
 
+    @JsonProperty("md5")
+    public String md5;
+
     @JsonProperty("data")
     public T      data;
 
