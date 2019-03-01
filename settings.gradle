@@ -1,1 +1,1 @@
-include ':app', ':colorshadowcardview'
+include ':app', ':colorshadowcardview', ':network'

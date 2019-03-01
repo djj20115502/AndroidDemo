@@ -14,6 +14,7 @@ import com.facebook.drawee.backends.pipeline.Fresco;
 import java.util.ArrayList;
 
 import djjtest.com.androiddemo.databinding.ActivityMainBinding;
+import djjtest.com.androiddemo.slidelayout.SlideFragment;
 import djjtest.com.androiddemo.test.itemDecoration.ItemDecorationFragment;
 import djjtest.com.androiddemo.utils.CommonUtils;
 import djjtest.com.androiddemo.view.TestFragment;

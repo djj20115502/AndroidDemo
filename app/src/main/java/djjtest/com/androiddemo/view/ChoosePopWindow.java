@@ -2,7 +2,9 @@ package djjtest.com.androiddemo.view;
 
 import android.content.Context;
 import android.databinding.DataBindingUtil;
+import android.graphics.Rect;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.LinearSnapHelper;
 import android.support.v7.widget.RecyclerView;
@@ -45,6 +47,7 @@ public class ChoosePopWindow extends PopupWindow {
 
     LinearLayoutManager linearLayoutManager;
     Object select;
+    int half = -1;
 
     private void initView() {
         View contentView = View.inflate(mBuilder.context, R.layout.choose_pop, null);
@@ -54,6 +57,24 @@ public class ChoosePopWindow extends PopupWindow {
         linearLayoutManager = new LinearLayoutManager(mBuilder.context);
         binding.rv.setLayoutManager(linearLayoutManager);
         setRvAdapter();
+        binding.rv.setLayoutManager(new RecyclerView.LayoutManager() {
+            @Override
+            public RecyclerView.LayoutParams generateDefaultLayoutParams() {
+                return null;
+            }
+        });
+        binding.rv.addItemDecoration(new RecyclerView.ItemDecoration() {
+            @Override
+            public void getItemOffsets(@NonNull Rect outRect, @NonNull View view, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
+                super.getItemOffsets(outRect, view, parent, state);
+                if (parent.getChildAdapterPosition(view) % 2 == 0) {
+                    view.setBackgroundColor(0xfffff000);
+                } else {
+                    view.setBackgroundColor(0xffff0000);
+                }
+            }
+        });
+        new DividerItemDecoration(mBuilder.context, 1);
         binding.rv.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
@@ -66,15 +87,20 @@ public class ChoosePopWindow extends PopupWindow {
                     position = Math.min(position, showCenter);
                     CommonUtils.log("position", position);
                     double scale = 1 - Math.sin(Math.PI / 6 * position) * 0.5;
-                    CommonUtils.log("scale", scale);
+
+
+                    float translationY=i - showCenter < 0 ? v.getHeight() * 1.5f : -v.getHeight() * 0.5f;
+                    CommonUtils.log("scale",v.getTag(), scale, i - showCenter,translationY);
+                    v.setPivotY(translationY);
                     v.setScaleX((float) scale);
                     v.setScaleY((float) scale);
                     v.setAlpha((float) scale);
                     if (scale == 1) {
                         v.setSelected(scale == 1);
                         select = recyclerView.getChildAdapterPosition(v);
+                        CommonUtils.log("getChildAdapterPosition", select);
                         if (mBuilder.adapter == null && mBuilder.showData != null) {
-                            select = mBuilder.showData.get((int) select).getResult();
+                            select = mBuilder.showData.get((int) select - addTop).justOneText;
                         }
                     }
                 }
@@ -93,12 +119,18 @@ public class ChoosePopWindow extends PopupWindow {
     }
 
 
+    private int addTop = 2;
+
     private void setRvAdapter() {
         if (mBuilder.adapter != null) {
             binding.rv.setAdapter(mBuilder.adapter);
             return;
         }
         HeaderAndFooterAdapter andFooterAdapter = new HeaderAndFooterAdapter(mBuilder.showData);
+        for (int i = 0; i < addTop; i++) {
+            andFooterAdapter.head.add(new CoverBean(new OneTextBean("", "")));
+            andFooterAdapter.footer.add(new CoverBean(new OneTextBean("", "")));
+        }
         OneTextHolder.inject(andFooterAdapter);
         binding.rv.setAdapter(andFooterAdapter);
     }
@@ -119,47 +151,45 @@ public class ChoosePopWindow extends PopupWindow {
         dismiss();
     }
 
-    public interface JustOneText<T> {
+    public interface JustOneText {
         String getShowText();
+    }
 
-        T getResult();
+    public static class OneTextBean implements JustOneText {
+
+        public String show;
+        public String result;
+
+        public OneTextBean(String show, String result) {
+            this.show = show;
+            this.result = result;
+        }
+
+        @Override
+        public String getShowText() {
+            return show;
+        }
     }
 
 
-    public static class OneTextBean implements JustOneText<Object> {
+    public static class CoverBean {
 
-
-        public OneTextBean(String show) {
-            this.show = show;
-        }
 
         JustOneText justOneText;
 
-        public OneTextBean(JustOneText justOneText) {
+        public CoverBean(JustOneText justOneText) {
             this.justOneText = justOneText;
         }
 
 
-        String show;
-
-        @Override
         public String getShowText() {
-            if (justOneText != null) {
-                return justOneText.getShowText();
-            }
-            return show;
+            return justOneText.getShowText();
         }
 
-        @Override
-        public Object getResult() {
-            if (justOneText != null) {
-                return justOneText.getResult();
-            }
-            return show;
-        }
+
     }
 
-    public static class OneTextHolder extends BaseMultiTypeViewHolder<OneTextBean> {
+    public static class OneTextHolder extends BaseMultiTypeViewHolder<CoverBean> {
 
 
         public static void inject(MultiTypeAdapter adapter) {
@@ -173,14 +203,8 @@ public class ChoosePopWindow extends PopupWindow {
 
 
         @Override
-        public void bind(final OneTextBean s) {
+        public void bind(final CoverBean s) {
             ((TextView) itemView).setText(s.getShowText());
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    CommonUtils.log(s.getResult());
-                }
-            });
             itemView.setTag(s.getShowText());
         }
 
@@ -197,7 +221,7 @@ public class ChoosePopWindow extends PopupWindow {
     public interface CallBack {
 
         /**
-         * 如果使用通用的showData  返回的是相应的 {@link JustOneText#getResult()}
+         * 如果使用通用的showData  返回的是相应的 {@link JustOneText }
          * 如果是使用自定义adapter 返回相应的 数据位置 int；
          */
         void onResult(Object o);
@@ -209,7 +233,7 @@ public class ChoosePopWindow extends PopupWindow {
         private View.OnClickListener leftButtonClick;
         private View.OnClickListener rightButtonClick;
         private HeaderAndFooterAdapter adapter;
-        private ArrayList<OneTextBean> showData;
+        private ArrayList<CoverBean> showData;
         private Context context;
         private CallBack callBack;
 
@@ -249,7 +273,7 @@ public class ChoosePopWindow extends PopupWindow {
         public Builder showData(List<? extends JustOneText> val) {
             showData = new ArrayList<>();
             for (JustOneText justOneText : val) {
-                showData.add(new OneTextBean(justOneText));
+                showData.add(new CoverBean(justOneText));
             }
             return this;
         }

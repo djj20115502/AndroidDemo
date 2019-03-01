@@ -19,6 +19,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.network.StateCallBack;
+import com.example.network.Test;
 import com.zyyoona7.popup.XGravity;
 import com.zyyoona7.popup.YGravity;
 
@@ -283,8 +285,8 @@ public class TestFragment extends FragmentAdapter.BaseFragment {
         CommonUtils.showToast(getActivity(), "" + binding.textView001.isSelected());
         binding.textView001.setSelected(!binding.textView001.isSelected());
         ArrayList<ChoosePopWindow.OneTextBean> show = new ArrayList<>();
-        for (int i = 0; i < 50; i++) {
-            ChoosePopWindow.OneTextBean bean = new ChoosePopWindow.OneTextBean("" + i);
+        for (int i = 0; i < 30; i++) {
+            ChoosePopWindow.OneTextBean bean = new ChoosePopWindow.OneTextBean("TTT" + i, "" + i);
             show.add(bean);
         }
         new ChoosePopWindow.Builder()
@@ -303,6 +305,23 @@ public class TestFragment extends FragmentAdapter.BaseFragment {
     }
 
     public void onClickRight() {
-        clickSimpleDateFormat();
+
+        Test.TestParamBuilder paramBuilder = new Test.TestParamBuilder(this);
+        paramBuilder.getBrandList("car", new StateCallBack<List<Test.Bean>>() {
+            @Override
+            public void onError(int errorCode, String msg, Object... other) {
+                CommonUtils.log("onError");
+            }
+
+            @Override
+            public void onSuccess(List<Test.Bean> data) {
+                CommonUtils.log("onSuccess", data,data.size());
+            }
+
+            @Override
+            public void onLoading(String msg) {
+                CommonUtils.log();
+            }
+        });
     }
 }

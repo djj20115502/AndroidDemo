@@ -98,4 +98,7 @@ dependencies {
 
     //导航 https://www.jianshu.com/p/d8a347ed113d
     implementation 'com.astuetz:pagerslidingtabstrip:1.0.1'
+
+    api project(':network')
+
 }
