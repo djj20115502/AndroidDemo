@@ -22,7 +22,7 @@ public class HttpFactory {
     public static <T> T create(Class<T> t) {
 
         Retrofit retrofit = new Retrofit.Builder().baseUrl(Constants.BASE_URL)
-                .addConverterFactory(JacksonConverterFactory.create())
+                .addConverterFactory(TestConverFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .client(OkHttpClientBuilder.getOkHttpClientBuilder())
                 .build();
@@ -64,4 +64,7 @@ public class HttpFactory {
         }
         return buf.toString();
     }
+
+
+
 }

@@ -307,20 +307,36 @@ public class TestFragment extends FragmentAdapter.BaseFragment {
     public void onClickRight() {
 
         Test.TestParamBuilder paramBuilder = new Test.TestParamBuilder(this);
-        paramBuilder.getBrandList("car", new StateCallBack<List<Test.Bean>>() {
+//        paramBuilder.getBrandList("car", new StateCallBack<List<Test.Bean>>() {
+//            @Override
+//            public void onError(int errorCode, String msg, Object... other) {
+//                CommonUtils.log("onError");
+//            }
+//
+//            @Override
+//            public void onSuccess(List<Test.Bean> data) {
+//                CommonUtils.log("onSuccess",  data.size());
+//            }
+//
+//            @Override
+//            public void onLoading(String msg) {
+//                CommonUtils.log();
+//            }
+//        });
+        paramBuilder.koubeiDetail(new StateCallBack<Test.KoubeiBean>() {
             @Override
             public void onError(int errorCode, String msg, Object... other) {
-                CommonUtils.log("onError");
+
             }
 
             @Override
-            public void onSuccess(List<Test.Bean> data) {
-                CommonUtils.log("onSuccess",  data.size());
+            public void onSuccess(Test.KoubeiBean data) {
+
             }
 
             @Override
             public void onLoading(String msg) {
-                CommonUtils.log();
+
             }
         });
     }

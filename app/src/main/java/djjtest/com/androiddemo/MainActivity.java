@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.EditText;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 

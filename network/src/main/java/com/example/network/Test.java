@@ -5,7 +5,6 @@ import android.util.Log;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.util.JSONPObject;
 
 import java.lang.ref.WeakReference;
 import java.util.List;
@@ -44,10 +43,18 @@ public class Test {
         public interface API {
 
 
-
             @GET("car/factory/lists")
             Observable<ResponseMessage<List<Bean>>> getBrandList(@Query("vehicle_type") String type, @Query("is_need_all") String isNeedAll);
 
+            /**
+             * 口碑详情
+             * http://yapi.i.cacf.cn/project/35/interface/api/4247
+             *
+             * @return
+             */
+            @GET("/koubei/koubei/detail")
+            Observable<ResponseMessage<KoubeiBean>> koubeiDetail(@Query("token") String token,
+                                                                 @Query("koubei_id") String koubei_id);
 
         }
     }
@@ -83,7 +90,38 @@ public class Test {
 
                 @Override
                 public void onNext(ResponseMessage<List<Bean>> objectResponseMessage) {
-                    Log.e("objectResponseMessage",objectResponseMessage.md5);
+                    Log.e("objectResponseMessage", objectResponseMessage.md5);
+                    if (objectResponseMessage.statusCode == Constants.NetworkStatusCode.SUCCESS) {
+                        callBack.onSuccess(objectResponseMessage.data);
+                    } else {
+                        callBack.onError(0, objectResponseMessage.statusMessage);
+                    }
+                }
+            });
+        }
+
+
+        public void koubeiDetail(final StateCallBack<KoubeiBean> callBack) {
+            HttpFactory.execute(Test.RewardApi.getService().koubeiDetail("", "596"), new Observer<ResponseMessage<KoubeiBean>>() {
+                @Override
+                public void onComplete() {
+
+                }
+
+                @Override
+                public void onSubscribe(Disposable disposable) {
+                    mSubscriptions.add(disposable);
+                }
+
+                @Override
+                public void onError(Throwable e) {
+                    e.printStackTrace();
+                    callBack.onError(0, e.getMessage());
+                }
+
+                @Override
+                public void onNext(ResponseMessage<KoubeiBean> objectResponseMessage) {
+                    Log.e("objectResponseMessage", objectResponseMessage.md5);
                     if (objectResponseMessage.statusCode == Constants.NetworkStatusCode.SUCCESS) {
                         callBack.onSuccess(objectResponseMessage.data);
                     } else {
@@ -96,7 +134,7 @@ public class Test {
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
-    public static class Bean  {
+    public static class Bean {
 
 
         /**
@@ -116,10 +154,7 @@ public class Test {
         public String letter;
 
 
-
-
         transient public boolean isSelected;
-
 
 
         @Override
@@ -129,8 +164,33 @@ public class Test {
                     ", brandId=" + brandId +
                     ", brandName='" + brandName + '\'' +
                     ", letter='" + letter + '\'' +
-                     '}';
+                    '}';
         }
     }
+
+    @TestConverFactory.NeedMd5
+    @JsonIgnoreProperties(ignoreUnknown = true)
+    public static class KoubeiBean {
+
+        @JsonProperty("id")
+        public int id;
+        @JsonProperty("user_id")
+        public int userId;
+        @JsonProperty("series_id")
+        public int seriesId;
+        @JsonProperty("car_id")
+        public int carId;
+
+        @Override
+        public String toString() {
+            return "KoubeiBean{" +
+                    "id=" + id +
+                    ", userId=" + userId +
+                    ", seriesId=" + seriesId +
+                    ", carId=" + carId +
+                    '}';
+        }
+    }
+
 
 }

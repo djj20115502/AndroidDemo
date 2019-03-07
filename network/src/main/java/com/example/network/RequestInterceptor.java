@@ -1,7 +1,6 @@
 package com.example.network;
 
 import android.content.Context;
-import android.text.TextUtils;
 
 import java.io.IOException;
 
@@ -90,11 +89,12 @@ public class RequestInterceptor implements Interceptor {
         }
 
         Response response = chain.proceed(newRequest);
+        HttpLog.log("TestConverFactory", "requestBodyConverter11111", Thread.currentThread().getName());
+        HttpLog.log("TestConverFactory", "requestBodyConverter hashCode", response.body().hashCode());
         if (response.body() != null) {
             MediaType mediaType = response.body().contentType();
             String body = response.body().string();
-            body = injectMd5(body);
-//            try {
+            //            try {
 //                JSONObject json = new JSONObject(body);
 //                int code = json.optInt("code");
 ////                Constants.HTTP_LOGIN_ERROR == code
@@ -122,17 +122,5 @@ public class RequestInterceptor implements Interceptor {
         return response;
     }
 
-    private String injectMd5(String body) {
-        if (TextUtils.isEmpty(body)) {
-            return body;
-        }
-        int len = body.length();
-        if (len < 2) {
-            return body;
-        }
-        String md5 = HttpFactory.md5(body);
-        body = body.substring(0, len - 1) + ",\"md5\":\"" + md5 + "\"}";
-        return body;
-    }
 
 }

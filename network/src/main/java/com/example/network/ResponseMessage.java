@@ -14,16 +14,15 @@ import java.io.Serializable;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ResponseMessage<T> implements Serializable {
     @JsonProperty("code")
-    public int    statusCode;
+    public int statusCode;
 
     @JsonProperty("msg")
     public String statusMessage;
 
-    @JsonProperty("md5")
-    public String md5;
+    transient public String md5;
 
     @JsonProperty("data")
-    public T      data;
+    public T data;
 
     public T getData() {
         return data;
