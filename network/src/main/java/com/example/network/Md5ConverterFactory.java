@@ -26,11 +26,11 @@ import retrofit2.Retrofit;
  * E-mail      :    dongjunjie.mail@qq.com
  * Description : {@link retrofit2.converter.jackson.JacksonConverterFactory}
  */
-public class TestConverFactory extends Converter.Factory {
+public class Md5ConverterFactory extends Converter.Factory {
     /**
      * Create an instance using a default {@link ObjectMapper} instance for conversion.
      */
-    public static TestConverFactory create() {
+    public static Md5ConverterFactory create() {
         return create(new ObjectMapper());
     }
 
@@ -38,14 +38,14 @@ public class TestConverFactory extends Converter.Factory {
      * Create an instance using {@code mapper} for conversion.
      */
     @SuppressWarnings("ConstantConditions") // Guarding public API nullability.
-    public static TestConverFactory create(ObjectMapper mapper) {
+    public static Md5ConverterFactory create(ObjectMapper mapper) {
         if (mapper == null) throw new NullPointerException("mapper == null");
-        return new TestConverFactory(mapper);
+        return new Md5ConverterFactory(mapper);
     }
 
     private final ObjectMapper mapper;
 
-    private TestConverFactory(ObjectMapper mapper) {
+    private Md5ConverterFactory(ObjectMapper mapper) {
         this.mapper = mapper;
     }
 

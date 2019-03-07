@@ -168,7 +168,7 @@ public class Test {
         }
     }
 
-    @TestConverFactory.NeedMd5
+    @Md5ConverterFactory.NeedMd5
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static class KoubeiBean {
 
