@@ -48,6 +48,12 @@ public class RecommendGridItemHolder extends BaseMultiTypeViewHolder<RecommendGr
         public String price;
         public String name;
         public String url;
+
+        public Data(String price, String name, String url) {
+            this.price = price;
+            this.name = name;
+            this.url = url;
+        }
     }
 }
 

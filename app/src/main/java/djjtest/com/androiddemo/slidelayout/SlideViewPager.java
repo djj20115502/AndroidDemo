@@ -54,17 +54,17 @@ public class SlideViewPager extends ViewPager {
                 getChildAt(0).setOnTouchListener(cardTouchListener);
             }
         });
-        setPageTransformer(true, new CardTransformer().setCallBack(new CardTransformer.CallBack() {
-            @Override
-            public boolean isSlideLeft() {
-                return isSlideLeft;
-            }
-
-            @Override
-            public boolean isBacK() {
-                return isBack;
-            }
-        }));
+//        setPageTransformer(true, new CardTransformer().setCallBack(new CardTransformer.CallBack() {
+//            @Override
+//            public boolean isSlideLeft() {
+//                return isSlideLeft;
+//            }
+//
+//            @Override
+//            public boolean isBacK() {
+//                return isBack;
+//            }
+//        }));
         addOnPageChangeListener(new OnPageChangeListener() {
             @Override
             public void onPageScrolled(int i, float v, int i1) {

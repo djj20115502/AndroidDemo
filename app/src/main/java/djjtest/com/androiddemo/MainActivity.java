@@ -10,16 +10,15 @@ import android.view.View;
 import android.widget.EditText;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
-import com.google.gson.Gson;
 
 import java.util.ArrayList;
 
+import djjtest.com.androiddemo.base.MultiTypeViewPagerAdapter;
 import djjtest.com.androiddemo.databinding.ActivityMainBinding;
-import djjtest.com.androiddemo.slidelayout.SlideFragment;
-import djjtest.com.androiddemo.test.itemDecoration.ItemDecorationFragment;
+import djjtest.com.androiddemo.test.itemDecoration.RecommendGridItemHolder;
 import djjtest.com.androiddemo.utils.CommonUtils;
+import djjtest.com.androiddemo.view.ChoosePopWindow;
 import djjtest.com.androiddemo.view.TestFragment;
-import djjtest.com.androiddemo.view.TestFragment2;
 
 /**
  * Author      :    DongJunJie
@@ -51,23 +50,51 @@ public class MainActivity extends AppCompatActivity {
 //        fragmentArrayList.add(new SlideFragment().setTitle("滑动"));
         adapter = new FragmentAdapter(getSupportFragmentManager(), fragmentArrayList);
 //        binding.viewpager.setPageTransformer(true, new GalleryTransformer());
-        binding.viewpager.setAdapter(adapter);
+
+        ArrayList<Object> mDatas = new ArrayList<>();
+        mDatas.add(new ChoosePopWindow.CoverBean(new ChoosePopWindow.JustOneText() {
+            @Override
+            public String getShowText() {
+                return "sdf";
+            }
+        }));
+        mDatas.add(new ChoosePopWindow.CoverBean(new ChoosePopWindow.JustOneText() {
+            @Override
+            public String getShowText() {
+                return "sdf1";
+            }
+        }));
+        mDatas.add(new ChoosePopWindow.CoverBean(new ChoosePopWindow.JustOneText() {
+            @Override
+            public String getShowText() {
+                return "sdf2";
+            }
+        }));
+         mDatas.add(new RecommendGridItemHolder.Data("price","price",Constants.getTestPic(1)));
+
+        mDatas.add(new RecommendGridItemHolder.Data("price2","pric2e",Constants.getTestPic(2)));
+        MultiTypeViewPagerAdapter multiTypeViewPagerAdapter = new MultiTypeViewPagerAdapter(this, mDatas);
+        multiTypeViewPagerAdapter.inject(R.layout.on_text_view2, ChoosePopWindow.OneTextHolder.class);
+        multiTypeViewPagerAdapter.inject(R.layout.itemdecoration_item, RecommendGridItemHolder.class);
+
+        binding.viewpager.setAdapter(multiTypeViewPagerAdapter);
+//        binding.viewpager.setAdapter(adapter);
         binding.viewpager.setClipChildren(false);
         binding.tablayout.setupWithViewPager(binding.viewpager);
     }
 
     @Override
     public boolean dispatchKeyEvent(KeyEvent event) {
-        CommonUtils.log(" dispatchKeyEvent",event);
+        CommonUtils.log(" dispatchKeyEvent", event);
         if (event.getAction() == KeyEvent.ACTION_DOWN) {
-          View v= getCurrentFocus();
-          if(v!=null){
-              CommonUtils.log(" getName",v.getClass().getName());
-              if(v instanceof EditText){
-                  CommonUtils.log("isFocusable",getWindow().getDecorView().isFocusable());
-                  getWindow().getDecorView().requestFocus();
-              }
-          }
+            View v = getCurrentFocus();
+            if (v != null) {
+                CommonUtils.log(" getName", v.getClass().getName());
+                if (v instanceof EditText) {
+                    CommonUtils.log("isFocusable", getWindow().getDecorView().isFocusable());
+                    getWindow().getDecorView().requestFocus();
+                }
+            }
         }
         return super.dispatchKeyEvent(event);
     }
