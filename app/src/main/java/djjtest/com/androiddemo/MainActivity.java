@@ -12,6 +12,7 @@ import android.widget.EditText;
 import com.facebook.drawee.backends.pipeline.Fresco;
 
 import java.util.ArrayList;
+import java.util.logging.Logger;
 
 import djjtest.com.androiddemo.base.MultiTypeViewPagerAdapter;
 import djjtest.com.androiddemo.databinding.ActivityMainBinding;
@@ -40,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
         Fresco.initialize(MainActivity.this);
         binding = DataBindingUtil.setContentView(this, layout_id);
         initView();
+        CommonUtils.log(BuildConfig.ddddd);
     }
 
 
