@@ -67,6 +67,9 @@ android {
                             'src/main/res/layouts/main',
                             'src/main/res/layouts/coordinatorLayout',
                             'src/main/res/layouts/slide',
+                            //测试小组建
+                            'src/main/res/layouts/small',
+
                             //必须放最后的2个
                             'src/main/res/layouts',
                             'src/main/res'

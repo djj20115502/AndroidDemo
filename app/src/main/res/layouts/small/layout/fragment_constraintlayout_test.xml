@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="holder"
+            type="djjtest.com.androiddemo.test.small.ConstraintLayoutFragment" />
+    </data>
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:background="@color/viewfinder_border"
+        android:gravity="center_vertical"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toTopOf="@+id/number_of_applicants"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="spread_inside"
+            tools:background="#565656">
+
+            <TextView
+                android:id="@+id/depreciate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:gravity="start"
+                android:includeFontPadding="false"
+                android:maxWidth="200dp"
+                android:maxLines="1"
+                android:paddingEnd="8dp"
+                android:textColor="#999999"
+                android:textSize="15sp"
+                android:visibility="gone"
+                tools:text="降 ¥3300.00" />
+
+            <TextView
+                android:id="@+id/limit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:gravity="start"
+                android:includeFontPadding="false"
+                android:maxLines="1"
+                android:textColor="#335868"
+                android:textSize="12sp"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@+id/depreciate"
+                app:layout_constraintStart_toEndOf="@+id/depreciate"
+                tools:text="限量1台" />
+        </LinearLayout>
+
+
+        <TextView
+            android:id="@+id/number_of_applicants"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="#00ff00"
+            android:ellipsize="end"
+            android:gravity="start"
+            android:includeFontPadding="false"
+            android:maxLines="1"
+            android:textColor="#335868"
+            android:textSize="12sp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+            tools:text="已报名35人"
+            tools:visibility="visible" />
+
+
+        <LinearLayout
+            android:id="@+id/linearLayout2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#0000ff"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/number_of_applicants">
+
+            <ImageView
+                android:id="@+id/time_icon"
+                android:layout_width="11dp"
+                android:layout_height="11dp"
+                android:layout_marginEnd="5dp"
+                android:src="@drawable/xuxian" />
+
+            <TextView
+                android:id="@+id/time_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:gravity="start"
+                android:includeFontPadding="false"
+                android:maxLines="1"
+                android:text="报名仅剩："
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                android:visibility="gone"
+                tools:visibility="visible" />
+
+        </LinearLayout>
+    </android.support.constraint.ConstraintLayout>
+</layout>
