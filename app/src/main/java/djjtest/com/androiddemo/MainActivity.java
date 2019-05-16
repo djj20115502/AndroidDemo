@@ -1,5 +1,7 @@
 package djjtest.com.androiddemo;
 
+import android.content.Context;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -27,6 +29,12 @@ import djjtest.com.androiddemo.view.TestFragment;
  * Description :
  */
 public class MainActivity extends AppCompatActivity {
+
+
+    public static void invoke(Context context) {
+        Intent intent = new Intent(context, MainActivity.class);
+        context.startActivity(intent);
+    }
 
     private static final int layout_id = R.layout.activity_main;
 
@@ -71,9 +79,9 @@ public class MainActivity extends AppCompatActivity {
                 return "sdf2";
             }
         }));
-         mDatas.add(new RecommendGridItemHolder.Data("price","price",Constants.getTestPic(1)));
+        mDatas.add(new RecommendGridItemHolder.Data("price", "price", Constants.getTestPic(1)));
 
-        mDatas.add(new RecommendGridItemHolder.Data("price2","pric2e",Constants.getTestPic(2)));
+        mDatas.add(new RecommendGridItemHolder.Data("price2", "pric2e", Constants.getTestPic(2)));
         MultiTypeViewPagerAdapter multiTypeViewPagerAdapter = new MultiTypeViewPagerAdapter(this, mDatas);
         multiTypeViewPagerAdapter.inject(R.layout.on_text_view2, ChoosePopWindow.OneTextHolder.class);
         multiTypeViewPagerAdapter.inject(R.layout.itemdecoration_item, RecommendGridItemHolder.class);

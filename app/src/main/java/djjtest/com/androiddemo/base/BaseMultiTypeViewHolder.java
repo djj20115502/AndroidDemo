@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
 
 import djjtest.com.androiddemo.utils.CommonUtils;
 import me.drakeet.multitype.ItemViewProvider;
@@ -53,6 +52,7 @@ public abstract class BaseMultiTypeViewHolder<T> extends RecyclerView.ViewHolder
 
             @Override
             protected void onBindViewHolder(@NonNull BaseMultiTypeViewHolder<E> holder, @NonNull E t) {
+                holder.clearViewState();
                 holder.bind(t);
             }
         });

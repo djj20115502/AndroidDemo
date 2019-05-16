@@ -36,6 +36,21 @@ public class HeaderAndFooterAdapter extends MultiTypeAdapter {
         return this;
     }
 
+    private boolean flag = false;
+
+    public HeaderAndFooterAdapter() {
+        super(new ArrayList<>());
+        flag = true;
+    }
+
+    @SuppressWarnings("unchecked")
+    public ArrayList<Object> getItems() {
+        if (flag) {
+            return (ArrayList<Object>) items;
+        } else {
+            throw new IllegalArgumentException("必须用 HeaderAndFooterAdapter()构造方法的才能用这个方法");
+        }
+    }
 
     public interface ClickCallBack<T> {
         void onClick(T bean);
