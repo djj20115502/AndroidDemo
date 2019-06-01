@@ -13,6 +13,8 @@ import djjtest.com.androiddemo.base.BaseMultiTypeViewHolder;
 import djjtest.com.androiddemo.base.HeaderAndFooterAdapter;
 import djjtest.com.androiddemo.coordinatorLayout.CoordinatorLayoutFragment;
 import djjtest.com.androiddemo.databinding.MainTestBinding;
+import djjtest.com.androiddemo.test.faf.FAFMain;
+import djjtest.com.androiddemo.test.popanddilog.DilogFragment;
 import me.drakeet.multitype.MultiTypeAdapter;
 
 public class MainTestActivity extends AppCompatActivity {
@@ -28,6 +30,18 @@ public class MainTestActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 CoordinatorLayoutFragment.invoke(getSupportFragmentManager());
+            }
+        });
+        addTest(" FAFMain", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FAFMain.invoke(getSupportFragmentManager());
+            }
+        });
+        addTest(" DilogFragment", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DilogFragment.invoke(getSupportFragmentManager());
             }
         });
     }

@@ -12,13 +12,15 @@ android {
             storePassword 'djj130623'
         }
     }
-    compileSdkVersion 28
+    compileSdkVersion rootProject.ext.compileSdkVersion
     defaultConfig {
         applicationId "djjtest.com.androiddemo"
         minSdkVersion 17
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
+        multiDexEnabled true
+
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     signingConfigs {

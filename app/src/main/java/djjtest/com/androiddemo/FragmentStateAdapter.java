@@ -3,7 +3,6 @@ package djjtest.com.androiddemo;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.view.ViewGroup;
 
@@ -17,12 +16,12 @@ import djjtest.com.androiddemo.slidelayout.CardTouchListener;
  * E-mail      :    dongjunjie.mail@qq.com
  * Description :
  */
-public class FragmentAdapter extends FragmentPagerAdapter {
-    ArrayList<BaseFragment> fragmentArrayList;
+public class FragmentStateAdapter extends FragmentStatePagerAdapter {
+    ArrayList<FragmentAdapter.BaseFragment> fragmentArrayList;
     Fragment currentFragment;
     CardTouchListener listener;
 
-    public FragmentAdapter(FragmentManager fm, ArrayList<BaseFragment> fragments) {
+    public FragmentStateAdapter(FragmentManager fm, ArrayList<FragmentAdapter.BaseFragment> fragments) {
         super(fm);
         fragmentArrayList = fragments;
 
@@ -39,18 +38,7 @@ public class FragmentAdapter extends FragmentPagerAdapter {
         return fragmentArrayList.size();
     }
 
-    public static abstract class BaseFragment extends Fragment {
-        public String title = "";
 
-        public BaseFragment setTitle(String title) {
-            this.title = title;
-            return this;
-        }
-
-        public CharSequence getTitle() {
-            return title;
-        }
-    }
 
 
     @Nullable

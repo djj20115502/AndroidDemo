@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import djjtest.com.androiddemo.FragmentAdapter;
 import djjtest.com.androiddemo.R;
 import djjtest.com.androiddemo.databinding.BaseFragmentBinding;
+import djjtest.com.androiddemo.utils.CommonUtils;
 
 /**
  * Author      :    DongJunJie
@@ -27,11 +28,19 @@ public class BaseFragment extends FragmentAdapter.BaseFragment {
     int color;
     String colorTile;
 
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        CommonUtils.log("BaseFragment onCreateView", title, hashCode());
         View v = inflater.inflate(layout_id, container, false);
         binding = DataBindingUtil.bind(v);
+        binding.root.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CommonUtils.log("BaseFragment", title, BaseFragment.this.hashCode());
+            }
+        });
         v.setTag(colorTile);
         v.setBackgroundColor(color);
         return v;
@@ -42,5 +51,11 @@ public class BaseFragment extends FragmentAdapter.BaseFragment {
         this.colorTile = title;
         this.title = title;
         return this;
+    }
+
+    @Override
+    public void onResume() {
+        CommonUtils.log("BaseFragment onResume", title, BaseFragment.this.hashCode());
+        super.onResume();
     }
 }
