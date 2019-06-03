@@ -24,6 +24,7 @@ import android.support.v4.view.NestedScrollingChildHelper;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.MotionEvent;
 import android.view.View;
@@ -595,6 +596,10 @@ public class BGARefreshLayout extends LinearLayout implements NestedScrollingChi
      * @param event
      * @return true表示自己消耗掉该事件，false表示不消耗该事件
      */
+    private final int[] mScrollOffset = new int[2];
+    private final int[] mScrollConsumed = new int[2];
+    private final int[] mNestedOffsets = new int[2];
+
     private boolean handleActionMove(MotionEvent event) {
         if (mCurrentRefreshStatus == RefreshStatus.REFRESHING || mIsLoadingMore) {
             return false;
@@ -608,8 +613,12 @@ public class BGARefreshLayout extends LinearLayout implements NestedScrollingChi
         }
 
         int refreshDiffY = (int) event.getY() - mRefreshDownY;
+        Log.e("nest", "startNestedScroll refreshDiffY  前" + refreshDiffY);
+        if (dispatchNestedPreScroll(0, -refreshDiffY, mScrollConsumed, mScrollOffset, TYPE_TOUCH)) {
+            return true;
+        }
+        Log.e("nest", "startNestedScroll refreshDiffY  后 " + refreshDiffY);
         refreshDiffY = (int) (refreshDiffY / mRefreshViewHolder.getPaddingTopScale());
-
         // 如果是向下拉，并且当前可见的第一个条目的索引等于0，才处理整个头部控件的padding
         if (refreshDiffY > 0 && shouldHandleRefresh() && isCustomHeaderViewCompleteVisible()) {
             int paddingTop = mMinWholeHeaderViewPaddingTop + refreshDiffY;
@@ -947,11 +956,14 @@ public class BGARefreshLayout extends LinearLayout implements NestedScrollingChi
     //child
     @Override
     public boolean startNestedScroll(int axes, int type) {
-        return this.mChildHelper.startNestedScroll(axes, type);
+        boolean rt = this.mChildHelper.startNestedScroll(axes, type);
+        Log.e("nest", "startNestedScroll  " + rt + "   " + type);
+        return rt;
     }
 
     @Override
     public void stopNestedScroll(int type) {
+        Log.e("nest", "startNestedScroll" + type);
         this.mChildHelper.stopNestedScroll(type);
     }
 

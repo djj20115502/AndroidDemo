@@ -47,7 +47,7 @@ public class TestNest extends BaseBGARDialogFragment<FragmentNestTestBinding> {
                     mItems.clear();
                 }
                 ArrayList a=new ArrayList();
-                for (int i = 0; i < 5; i++) {
+                for (int i = 0; i <10; i++) {
                     a.add(new CustomOnTextChooseDialog.OneTextHolder.Bean());
 
                 }
