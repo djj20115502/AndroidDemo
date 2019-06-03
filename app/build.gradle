@@ -45,6 +45,8 @@ android {
             signingConfig signingConfigs.signingConfig
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            debuggable true
+            testCoverageEnabled false
         }
         debug {
             manifestPlaceholders = [
@@ -53,7 +55,8 @@ android {
             ]
             resValue "string", "AppName", "app2"
             buildConfigField "boolean", "ENABLE_DEBUG", "true"
-
+            debuggable true
+            testCoverageEnabled false
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
@@ -108,5 +111,5 @@ dependencies {
     implementation 'com.astuetz:pagerslidingtabstrip:1.0.1'
     api project(':network')
     implementation 'com.google.code.gson:gson:2.8.5'
-    compile project(path: ':bgarefreshlibrary')
+    api project(path: ':bgarefreshlibrary')
 }

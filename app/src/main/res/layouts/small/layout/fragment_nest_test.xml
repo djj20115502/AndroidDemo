@@ -114,15 +114,20 @@
                 android:layout_height="wrap_content"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/rv"
+                <!--<android.support.v7.widget.RecyclerView-->
+                <!--android:id="@+id/rv"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--app:layoutManager="android.support.v7.widget.LinearLayoutManager"-->
+                <!--app:layout_behavior="@string/appbar_scrolling_view_behavior"-->
+                <!--app:spanCount="3"-->
+                <!--tools:itemCount="4"-->
+                <!--tools:listitem="@layout/on_text_view" />-->
+
+                <View
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:layoutManager="android.support.v7.widget.LinearLayoutManager"
-                    app:layout_behavior="@string/appbar_scrolling_view_behavior"
-                    app:spanCount="3"
-                    tools:itemCount="4"
-                    tools:listitem="@layout/on_text_view" />
+                    android:layout_height="500dp"
+                    android:background="@drawable/girl" />
             </cn.bingoogolapple.refreshlayout.BGARefreshLayout>
 
 

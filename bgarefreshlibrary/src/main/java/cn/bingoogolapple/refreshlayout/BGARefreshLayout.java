@@ -19,6 +19,9 @@ import android.animation.ValueAnimator;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
+import android.support.v4.view.NestedScrollingChild2;
+import android.support.v4.view.NestedScrollingChildHelper;
+import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.util.TypedValue;
@@ -35,12 +38,14 @@ import java.lang.reflect.Field;
 
 import cn.bingoogolapple.refreshlayout.util.BGARefreshScrollingUtil;
 
+import static android.support.v4.view.ViewCompat.TYPE_TOUCH;
+
 /**
  * 作者:王浩 邮件:bingoogolapple@gmail.com
  * 创建时间:15/5/21 22:35
  * 描述:下拉刷新、上拉加载更多、可添加自定义（固定、可滑动）头部控件（例如慕课网app顶部的广告位）
  */
-public class BGARefreshLayout extends LinearLayout {
+public class BGARefreshLayout extends LinearLayout implements NestedScrollingChild2 {
     private static final String TAG = BGARefreshLayout.class.getSimpleName();
 
     private BGARefreshViewHolder mRefreshViewHolder;
@@ -147,6 +152,8 @@ public class BGARefreshLayout extends LinearLayout {
         mTouchSlop = ViewConfiguration.get(context).getScaledTouchSlop();
         mHandler = new Handler(Looper.getMainLooper());
         initWholeHeaderView();
+        this.mChildHelper = new NestedScrollingChildHelper(this);
+        this.mChildHelper.setNestedScrollingEnabled(true);
     }
 
     /**
@@ -396,6 +403,7 @@ public class BGARefreshLayout extends LinearLayout {
             case MotionEvent.ACTION_DOWN:
                 mInterceptTouchDownX = event.getRawX();
                 mInterceptTouchDownY = event.getRawY();
+                startNestedScroll(ViewCompat.SCROLL_AXIS_VERTICAL, TYPE_TOUCH);
                 break;
             case MotionEvent.ACTION_MOVE:
                 if (!mIsLoadingMore && (mCurrentRefreshStatus != RefreshStatus.REFRESHING)) {
@@ -424,6 +432,7 @@ public class BGARefreshLayout extends LinearLayout {
                 // 重置
                 mInterceptTouchDownX = -1;
                 mInterceptTouchDownY = -1;
+                stopNestedScroll(TYPE_TOUCH);
                 break;
         }
 
@@ -500,6 +509,7 @@ public class BGARefreshLayout extends LinearLayout {
         if (null != mRefreshHeaderView) {
             switch (event.getAction()) {
                 case MotionEvent.ACTION_DOWN:
+                    startNestedScroll(ViewCompat.SCROLL_AXIS_VERTICAL, TYPE_TOUCH);
                     mWholeHeaderDownY = (int) event.getY();
                     if (mCustomHeaderView != null) {
                         mWholeHeaderViewDownPaddingTop = mWholeHeaderView.getPaddingTop();
@@ -520,6 +530,7 @@ public class BGARefreshLayout extends LinearLayout {
                     break;
                 case MotionEvent.ACTION_CANCEL:
                 case MotionEvent.ACTION_UP:
+                    stopNestedScroll(TYPE_TOUCH);
                     if (handleActionUpOrCancel(event)) {
                         return true;
                     }
@@ -929,4 +940,34 @@ public class BGARefreshLayout extends LinearLayout {
     public static int dp2px(Context context, int dpValue) {
         return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dpValue, context.getResources().getDisplayMetrics());
     }
+
+
+    private final NestedScrollingChildHelper mChildHelper;
+
+    //child
+    @Override
+    public boolean startNestedScroll(int axes, int type) {
+        return this.mChildHelper.startNestedScroll(axes, type);
+    }
+
+    @Override
+    public void stopNestedScroll(int type) {
+        this.mChildHelper.stopNestedScroll(type);
+    }
+
+    @Override
+    public boolean hasNestedScrollingParent(int type) {
+        return this.mChildHelper.hasNestedScrollingParent(type);
+    }
+
+    @Override
+    public boolean dispatchNestedScroll(int dxConsumed, int dyConsumed, int dxUnconsumed, int dyUnconsumed, int[] offsetInWindow, int type) {
+        return this.mChildHelper.dispatchNestedScroll(dxConsumed, dyConsumed, dxUnconsumed, dyUnconsumed, offsetInWindow, type);
+    }
+
+    @Override
+    public boolean dispatchNestedPreScroll(int dx, int dy, int[] consumed, int[] offsetInWindow, int type) {
+        return this.mChildHelper.dispatchNestedPreScroll(dx, dy, consumed, offsetInWindow, type);
+    }
+
 }
