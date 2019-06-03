@@ -96,7 +96,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/girl"
-                    app:layout_scrollFlags="scroll|enterAlways" />
+                    app:layout_scrollFlags="scroll" />
 
 
                 <ImageView
@@ -108,28 +108,36 @@
 
             </android.support.design.widget.AppBarLayout>
 
-            <cn.bingoogolapple.refreshlayout.BGARefreshLayout
-                android:id="@+id/bg_refresh_root"
+            <!--<cn.bingoogolapple.refreshlayout.BGARefreshLayout-->
+            <!--android:id="@+id/bg_refresh_root"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--app:layout_behavior="@string/appbar_scrolling_view_behavior">-->
+
+            <!--&lt;!&ndash;<android.support.v7.widget.RecyclerView&ndash;&gt;-->
+            <!--&lt;!&ndash;android:id="@+id/rv"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:layout_width="match_parent"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
+            <!--&lt;!&ndash;app:layoutManager="android.support.v7.widget.LinearLayoutManager"&ndash;&gt;-->
+            <!--&lt;!&ndash;app:layout_behavior="@string/appbar_scrolling_view_behavior"&ndash;&gt;-->
+            <!--&lt;!&ndash;app:spanCount="3"&ndash;&gt;-->
+            <!--&lt;!&ndash;tools:itemCount="4"&ndash;&gt;-->
+            <!--&lt;!&ndash;tools:listitem="@layout/on_text_view" />&ndash;&gt;-->
+
+            <!--<View-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="500dp"-->
+            <!--android:background="@drawable/girl" />-->
+            <!--</cn.bingoogolapple.refreshlayout.BGARefreshLayout>-->
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-                <!--<android.support.v7.widget.RecyclerView-->
-                <!--android:id="@+id/rv"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--app:layoutManager="android.support.v7.widget.LinearLayoutManager"-->
-                <!--app:layout_behavior="@string/appbar_scrolling_view_behavior"-->
-                <!--app:spanCount="3"-->
-                <!--tools:itemCount="4"-->
-                <!--tools:listitem="@layout/on_text_view" />-->
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="500dp"
-                    android:background="@drawable/girl" />
-            </cn.bingoogolapple.refreshlayout.BGARefreshLayout>
-
+                app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                app:spanCount="3"
+                tools:itemCount="4"
+                tools:listitem="@layout/on_text_view" />
 
         </android.support.design.widget.CoordinatorLayout>
 

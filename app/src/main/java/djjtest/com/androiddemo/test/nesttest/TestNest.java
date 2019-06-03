@@ -29,10 +29,10 @@ public class TestNest extends BaseBGARDialogFragment<FragmentNestTestBinding> {
     protected void initView() {
         super.initView();
         binding.setHolder(this);
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 20; i++) {
             mItems.add(new CustomOnTextChooseDialog.OneTextHolder.Bean());
         }
-//        binding.rv.setAdapter(multiTypeAdapter);
+        binding.rv.setAdapter(multiTypeAdapter);
         stopRefreshAll();
     }
 
