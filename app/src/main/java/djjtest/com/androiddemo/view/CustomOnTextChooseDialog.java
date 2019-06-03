@@ -19,6 +19,7 @@ import com.zyyoona7.popup.EasyPopup;
 import java.util.ArrayList;
 import java.util.List;
 
+import djjtest.com.androiddemo.Constants;
 import djjtest.com.androiddemo.R;
 import djjtest.com.androiddemo.base.BaseMultiTypeViewHolder;
 import djjtest.com.androiddemo.databinding.OnTextViewBinding;
@@ -135,10 +136,9 @@ public class CustomOnTextChooseDialog {
         @Override
         public void bind(Bean s) {
             itemView.requestLayout();
-
             CommonUtils.log("bind", s.data.toString());
             bean = s;
-            ((TextView) itemView).setText(s.data.toString());
+            binding.setData(s.data.toString());
             binding.setHolder(this);
 
         }
@@ -147,8 +147,13 @@ public class CustomOnTextChooseDialog {
             if (bean == null) {
                 return;
             }
-            bean.mCirclePop.dismiss();
-            bean.callBack.OnClick(bean.data);
+            if(bean.mCirclePop!=null){
+                bean.mCirclePop.dismiss();
+            }
+            if(bean.callBack!=null){
+                bean.callBack.OnClick(bean.data);
+            }
+
 
         }
 
@@ -167,6 +172,10 @@ public class CustomOnTextChooseDialog {
                 this.data = data;
                 this.callBack = callBack;
                 this.mCirclePop = mCirclePop;
+            }
+
+            public Bean() {
+                data= Constants.getTestName();
             }
         }
     }

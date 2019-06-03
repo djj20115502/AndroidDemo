@@ -108,4 +108,5 @@ dependencies {
     implementation 'com.astuetz:pagerslidingtabstrip:1.0.1'
     api project(':network')
     implementation 'com.google.code.gson:gson:2.8.5'
+    compile project(path: ':bgarefreshlibrary')
 }

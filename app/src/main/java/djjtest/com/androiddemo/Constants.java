@@ -1,7 +1,5 @@
 package djjtest.com.androiddemo;
 
-import java.security.PublicKey;
-
 /**
  * Author      :    DongJunJie
  * Date        :    2018/12/18
@@ -24,4 +22,25 @@ public class Constants {
         };
         return strings[order % strings.length];
     }
+    public static String getTestPic( ) {
+        return getTestPic(order);
+    }
+    static int order = 0;
+
+    public static String getTestName() {
+        order++;
+        String[] strings = new String[]{
+                "销售姓名",
+                "a",
+                "一汽丰田 · 汉兰达",
+                "机构简称机构简称",
+                "机构简称机构简称机构简称机构简称机构简称机构简称",
+                "您的买车招标已提交成功，请等待经销商回复",
+                "等待",
+                "现金折扣7折",
+                "降 ¥9999.00"
+        };
+        return strings[order % strings.length];
+    }
+
 }
