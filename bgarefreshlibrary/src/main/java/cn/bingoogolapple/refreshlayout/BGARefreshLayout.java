@@ -19,6 +19,7 @@ import android.animation.ValueAnimator;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.view.NestedScrollingChild2;
 import android.support.v4.view.NestedScrollingChildHelper;
 import android.support.v4.view.ViewCompat;
@@ -616,7 +617,8 @@ public class BGARefreshLayout extends LinearLayout implements NestedScrollingChi
         if (refreshDiffY == 0) {
             return false;
         }
-        Log.e("nest", "  refreshDiffY  " + refreshDiffY);
+        Log.e("nest", "  refreshDiffY " +
+                "  " + refreshDiffY);
         if (dispatchNestedPreScroll(0, -refreshDiffY, mScrollConsumed, mScrollOffset, TYPE_TOUCH)) {
             Log.e("nest", "  refreshDiffY  前前前 DDDD" + refreshDiffY);
             return true;
@@ -970,13 +972,13 @@ public class BGARefreshLayout extends LinearLayout implements NestedScrollingChi
     @Override
     public boolean startNestedScroll(int axes, int type) {
         boolean rt = this.mChildHelper.startNestedScroll(axes, type);
-        Log.e("nest", "startNestedScroll  " + rt + "   " + type);
+        Log.e("nest", "startNestedScroll start  " + rt + "   " + type);
         return rt;
     }
 
     @Override
     public void stopNestedScroll(int type) {
-        Log.e("nest", "startNestedScroll" + type);
+        Log.e("nest", "startNestedScroll  end  " + type);
         this.mChildHelper.stopNestedScroll(type);
     }
 

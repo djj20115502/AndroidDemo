@@ -23,6 +23,9 @@ android {
 dependencies {
     compileOnly "com.android.support:recyclerview-v7:$rootProject.supportLibraryVersion"
     implementation "com.android.support:appcompat-v7:$rootProject.supportLibraryVersion"
+
+    implementation "com.android.support:design:$supportLibraryVersion"
+
 }
 
 // gradle uploadArchives
