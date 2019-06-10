@@ -613,14 +613,27 @@ public class BGARefreshLayout extends LinearLayout implements NestedScrollingChi
         }
 
         int refreshDiffY = (int) event.getY() - mRefreshDownY;
-        Log.e("nest", "startNestedScroll refreshDiffY  前" + refreshDiffY);
+        if (refreshDiffY == 0) {
+            return false;
+        }
+        Log.e("nest", "  refreshDiffY  " + refreshDiffY);
         if (dispatchNestedPreScroll(0, -refreshDiffY, mScrollConsumed, mScrollOffset, TYPE_TOUCH)) {
+            Log.e("nest", "  refreshDiffY  前前前 DDDD" + refreshDiffY);
             return true;
         }
-        Log.e("nest", "startNestedScroll refreshDiffY  后 " + refreshDiffY);
-        refreshDiffY = (int) (refreshDiffY / mRefreshViewHolder.getPaddingTopScale());
+        Log.e("nest", "  refreshDiffY  前前前 wwww" + refreshDiffY);
+
         // 如果是向下拉，并且当前可见的第一个条目的索引等于0，才处理整个头部控件的padding
         if (refreshDiffY > 0 && shouldHandleRefresh() && isCustomHeaderViewCompleteVisible()) {
+            if (dispatchNestedScroll(0, 0, 0, 0, mScrollOffset, TYPE_TOUCH)) {
+                Log.e("nest", "  refreshDiffY  后后后后 " + refreshDiffY + " " + mScrollOffset[1]);
+                if (mScrollOffset[1] != 0) {
+                    Log.e("nest", "  refreshDiffY  后后后后 DDDDD" + refreshDiffY);
+                    return true;
+                }
+            }
+            Log.e("nest", "  refreshDiffY  后后后后 wwwww" + refreshDiffY);
+            refreshDiffY = (int) (refreshDiffY / mRefreshViewHolder.getPaddingTopScale());
             int paddingTop = mMinWholeHeaderViewPaddingTop + refreshDiffY;
             if (paddingTop > 0 && mCurrentRefreshStatus != RefreshStatus.RELEASE_REFRESH) {
                 // 下拉刷新控件完全显示，并且当前状态没有处于释放开始刷新状态

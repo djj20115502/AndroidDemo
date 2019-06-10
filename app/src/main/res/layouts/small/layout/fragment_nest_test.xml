@@ -96,14 +96,18 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/girl"
+                    app:layout_scrollFlags="scroll" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/boy"
                     app:layout_scrollFlags="scroll|enterAlways" />
-
-
                 <ImageView
                     android:id="@+id/tab_icon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/boy" />
+                    android:src="@drawable/girl" />
 
 
             </android.support.design.widget.AppBarLayout>
