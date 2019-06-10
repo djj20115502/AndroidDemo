@@ -619,6 +619,8 @@ public class BGARefreshLayout extends LinearLayout implements NestedScrollingChi
         if (refreshDiffY == 0) {
             return false;
         }
+        stopNestedScroll(TYPE_TOUCH);
+        startNestedScroll(ViewCompat.SCROLL_AXIS_VERTICAL, TYPE_TOUCH);
         Log.e("nest", "  refreshDiffY " +
                 "  " + refreshDiffY);
         if (dispatchNestedPreScroll(0, -refreshDiffY, mScrollConsumed, mScrollOffset, TYPE_TOUCH)) {
