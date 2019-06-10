@@ -415,8 +415,10 @@ public class BGARefreshLayout extends LinearLayout implements NestedScrollingChi
                     if (mInterceptTouchDownY == -1) {
                         mInterceptTouchDownY = (int) event.getRawY();
                     }
+                    Log.e("djjtest","onInterceptTouchEvent ");
 
                     int interceptTouchMoveDistanceY = (int) (event.getRawY() - mInterceptTouchDownY);
+
                     // 可以没有上拉加载更多，但是必须有下拉刷新，否则就不拦截事件
                     if (Math.abs(event.getRawX() - mInterceptTouchDownX) < Math.abs(interceptTouchMoveDistanceY) && mRefreshHeaderView != null) {
                         if ((interceptTouchMoveDistanceY > mTouchSlop && shouldHandleRefresh()) || (interceptTouchMoveDistanceY < -mTouchSlop && shouldHandleLoadingMore()) || (interceptTouchMoveDistanceY < -mTouchSlop && !isWholeHeaderViewCompleteInvisible()) || (interceptTouchMoveDistanceY > mTouchSlop && shouldInterceptToMoveCustomHeaderViewDown())) {
@@ -627,7 +629,7 @@ public class BGARefreshLayout extends LinearLayout implements NestedScrollingChi
 
         // 如果是向下拉，并且当前可见的第一个条目的索引等于0，才处理整个头部控件的padding
         if (refreshDiffY > 0 && shouldHandleRefresh() && isCustomHeaderViewCompleteVisible()) {
-            if (dispatchNestedScroll(0, 0, 0, 0, mScrollOffset, TYPE_TOUCH)) {
+            if (dispatchNestedScroll(0, 0, 0, -refreshDiffY, mScrollOffset, TYPE_TOUCH)) {
                 Log.e("nest", "  refreshDiffY  后后后后 " + refreshDiffY + " " + mScrollOffset[1]);
                 if (mScrollOffset[1] != 0) {
                     Log.e("nest", "  refreshDiffY  后后后后 DDDDD" + refreshDiffY);
