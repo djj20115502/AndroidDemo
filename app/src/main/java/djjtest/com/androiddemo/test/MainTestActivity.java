@@ -13,6 +13,8 @@ import djjtest.com.androiddemo.base.BaseMultiTypeViewHolder;
 import djjtest.com.androiddemo.base.HeaderAndFooterAdapter;
 import djjtest.com.androiddemo.coordinatorLayout.CoordinatorLayoutFragment;
 import djjtest.com.androiddemo.databinding.MainTestBinding;
+import djjtest.com.androiddemo.rv.HorizontallyLooperLayoutManager;
+import djjtest.com.androiddemo.rv.VerticallyLooperLayoutManager;
 import djjtest.com.androiddemo.test.faf.FAFMain;
 import djjtest.com.androiddemo.test.nesttest.TestNest;
 import djjtest.com.androiddemo.test.nesttest.TestNest2;
@@ -72,6 +74,8 @@ public class MainTestActivity extends AppCompatActivity {
         mActivity = this;
         test();
         TestViewHolder.inject(mHeaderAndFooterAdapter);
+//        binding.testRv.setLayoutManager(new HorizontallyLooperLayoutManager());
+        binding.testRv.setLayoutManager(new VerticallyLooperLayoutManager());
         binding.testRv.setAdapter(mHeaderAndFooterAdapter);
     }
 
