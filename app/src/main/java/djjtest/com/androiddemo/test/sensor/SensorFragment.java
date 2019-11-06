@@ -33,7 +33,7 @@ public class SensorFragment extends BaseTestFragment {
         listener = new SensorEventListener() {
             @Override
             public void onSensorChanged(SensorEvent event) {
-                onSensorChanged(event);
+                doOnSensorChanged(event);
             }
 
             @Override
@@ -51,48 +51,52 @@ public class SensorFragment extends BaseTestFragment {
 
     private void unregisterListener() {
         //注销传感器监听
-
         mSensorManager.unregisterListener(listener);
     }
 
     float lastAz, lastAy, lastAx;
     final float SENSOR_VALUE = 2;
-    final float MIN_TIME_BETWEEN_SAMPLES_NS = 100;
+    //最小间隔时间
+    final float MIN_TIME_BETWEEN_SAMPLES_NS = 500;
     long lastShakeTimestamp = 0;
     long mLastTimestamp = 0;
     final long SHAKING_TIME_WINDOW = 9;
     final long REQUIRED_FORCE = 2;
     float lastAX, lastAY, lastAZ;
 
-    public void onSensorChanged(SensorEvent sensorEvent) {
+    public void doOnSensorChanged(SensorEvent sensorEvent) {
         if (sensorEvent.timestamp - mLastTimestamp < MIN_TIME_BETWEEN_SAMPLES_NS) {
             return;
         }
-
         float ax = sensorEvent.values[0];
         float ay = sensorEvent.values[1];
         float az = sensorEvent.values[2] - SensorManager.GRAVITY_EARTH;
-
         mLastTimestamp = sensorEvent.timestamp;
-
         if (Math.abs(ax) > REQUIRED_FORCE && ax * lastAX <= 0) {
-            recordShake(sensorEvent.timestamp);
+            recordShake(sensorEvent.timestamp, sensorEvent);
             lastAX = ax;
         } else if (Math.abs(ay) > REQUIRED_FORCE && ay * lastAY <= 0) {
-            recordShake(sensorEvent.timestamp);
+            recordShake(sensorEvent.timestamp, sensorEvent);
             lastAY = ay;
         } else if (Math.abs(az) > REQUIRED_FORCE && az * lastAZ <= 0) {
-            recordShake(sensorEvent.timestamp);
+            recordShake(sensorEvent.timestamp, sensorEvent);
             lastAZ = az;
         }
     }
-
     int count = 0;
 
-    private void recordShake(long mLastTimestamp) {
+    private void recordShake(long mLastTimestamp, SensorEvent sensorEvent) {
+        CommonUtils.log(sensorEvent.values[0], sensorEvent.values[1], sensorEvent.values[2]);
         this.lastShakeTimestamp = mLastTimestamp;
         CommonUtils.log(++count);
+        binding.tip.setText("" + count);
 
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unregisterListener();
     }
 
     private void reset() {
