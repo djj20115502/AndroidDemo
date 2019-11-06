@@ -3,18 +3,32 @@ package djjtest.com.androiddemo.javatest;
 public class Main {
 
     public static void main(String[] arg) {
+//        ContainsDuplicateIII.test();
 
-        println(new int[]{1}, 1) ;
-        println(new int[]{1, 2}, 4)  ;
-        println(new int[]{2, -1, 2}, 3) ;
-        println(new int[]{2, -1, 4,5,6,7,-23,-2}, 3) ;
-        println(new int[]{77,19,35,10,-14}, 19) ;
+        ShortestSubarraywithSumatLeastK.test();
+//        print(-34|1);
+//        print(-34 & 3);
+//        print( 34 & 3);
+//        print( 1 ^ 1);
+//        print( -1 ^ 1);
+//        print( 1 ^ -1);
+//        print( -1 ^ -1);
+//        print( -34 ^ 0);
+//        print(  34 ^ 0);
+//        print( 0 ^ 0);
+//        print( 0 ^ 3);
+//        print( 0 ^ -3);
 
     }
 
-    public static void println(int[] A, int K) {
-        long t1 = System.currentTimeMillis();
-        int ans = Solution.shortestSubarray(A, K);
-        System.out.println("time: "+(System.currentTimeMillis() - t1) + "  ans:" + ans);
+
+    public static void print(Object... log) {
+
+        StringBuilder stringBuilder = new StringBuilder();
+        for (Object s : log) {
+            stringBuilder.append(s).append(" ");
+        }
+        System.out.println(stringBuilder.toString());
     }
+
 }

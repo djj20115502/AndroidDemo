@@ -119,6 +119,12 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/div_line" />
 
+        <android.support.constraint.Group
+            android:id="@+id/starts"
+            android:layout_width="match_parent"
+            app:constraint_referenced_ids="star_0, star_1,star_2,star_3, star_4"
+            android:layout_height="match_parent" />
+
 
     </android.support.constraint.ConstraintLayout>
 </layout>

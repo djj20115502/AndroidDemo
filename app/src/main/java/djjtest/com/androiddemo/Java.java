@@ -3,11 +3,8 @@ package djjtest.com.androiddemo;
 import android.annotation.SuppressLint;
 
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
-
-import djjtest.com.androiddemo.model.TestBuilder;
 
 /**
  * Author      :    DongJunJie
@@ -23,7 +20,7 @@ public class Java {
 //        System.out.println(getUnit(1));
 //        System.out.println(getUnit(1111111111));
 //        System.out.println(getUnit(111111));
-        test();
+
     }
 
     @SuppressLint("DefaultLocale")

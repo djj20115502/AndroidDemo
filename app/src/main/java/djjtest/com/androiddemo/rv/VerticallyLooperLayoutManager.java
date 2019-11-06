@@ -6,7 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 public class VerticallyLooperLayoutManager extends RecyclerView.LayoutManager {
-    private static final String TAG = "VerticallyLooperLayoutManager";
+    private static final String TAG = "VLLayoutManager";
     private boolean looperEnable = true;
 
 

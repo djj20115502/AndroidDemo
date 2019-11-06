@@ -1,5 +1,6 @@
 package djjtest.com.androiddemo.test.rvchange;
 
+import android.databinding.DataBindingUtil;
 import android.support.annotation.NonNull;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.RecyclerView;
@@ -9,15 +10,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
-import android.widget.EditText;
-import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.BindViews;
-import butterknife.ButterKnife;
 import djjtest.com.androiddemo.R;
+import djjtest.com.androiddemo.databinding.RvChangeBinding;
 import djjtest.com.androiddemo.utils.CommonUtils;
 import me.drakeet.multitype.ItemViewProvider;
 import me.drakeet.multitype.MultiTypeAdapter;
@@ -51,20 +49,22 @@ public class RvItem extends RecyclerView.ViewHolder {
         return adapter;
     }
 
-    @BindView(R.id.title)
-    TextView title;
-    @BindView(R.id.content)
-    EditText content;
-    @BindViews({R.id.star_0, R.id.star_1, R.id.star_2, R.id.star_3, R.id.star_4})
-    List<View> stars;
-
 
     Data data;
+    List<View> stars;
+    RvChangeBinding binding;
 
     public RvItem(View itemView) {
         super(itemView);
-        ButterKnife.bind(this, itemView);
+        binding = DataBindingUtil.bind(itemView);
         clearViewState();
+        stars = new ArrayList<>();
+        stars.add(binding.star0);
+        stars.add(binding.star1);
+        stars.add(binding.star2);
+        stars.add(binding.star3);
+        stars.add(binding.star4);
+
 
         for (int i = 0; i < stars.size(); i++) {
             stars.get(i).setTag(i);
@@ -96,12 +96,12 @@ public class RvItem extends RecyclerView.ViewHolder {
         CommonUtils.log("1111111", data.nestedScrollView.getScrollY());
         if (data.dynamicShowEdit) {
             if (data.point > 0) {
-                content.setVisibility(View.VISIBLE);
+                binding.content.setVisibility(View.VISIBLE);
             } else {
-                content.setVisibility(View.GONE);
+                binding.content.setVisibility(View.GONE);
             }
         } else {
-            content.setVisibility(View.VISIBLE);
+            binding.content.setVisibility(View.VISIBLE);
         }
         CommonUtils.log("2222222", data.nestedScrollView.getScrollY());
 
@@ -123,9 +123,9 @@ public class RvItem extends RecyclerView.ViewHolder {
             v.setSelected(false);
             v.setVisibility(View.GONE);
         }
-        title.setText("");
-        content.setHint("");
-        content.setText(null);
+        binding.title.setText("");
+        binding.content.setHint("");
+        binding.content.setText(null);
     }
 
     public void bind(Data var) {
@@ -138,10 +138,10 @@ public class RvItem extends RecyclerView.ViewHolder {
             }
         }
         setStars(data.point);
-        title.setText(data.title);
-        content.setHint(data.defaultDes);
-        content.setText(data.des);
-        content.addTextChangedListener(new TextWatcher() {
+        binding.title.setText(data.title);
+        binding.content.setHint(data.defaultDes);
+        binding.content.setText(data.des);
+        binding.content.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -158,7 +158,8 @@ public class RvItem extends RecyclerView.ViewHolder {
             }
         });
         if (data.textWatcher != null) {
-            content.addTextChangedListener(data.textWatcher);
+
+            binding.content.addTextChangedListener(data.textWatcher);
         }
 //        itemView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
 //            @Override

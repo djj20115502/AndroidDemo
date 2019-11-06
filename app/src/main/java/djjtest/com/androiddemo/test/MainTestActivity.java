@@ -13,12 +13,13 @@ import djjtest.com.androiddemo.base.BaseMultiTypeViewHolder;
 import djjtest.com.androiddemo.base.HeaderAndFooterAdapter;
 import djjtest.com.androiddemo.coordinatorLayout.CoordinatorLayoutFragment;
 import djjtest.com.androiddemo.databinding.MainTestBinding;
-import djjtest.com.androiddemo.rv.HorizontallyLooperLayoutManager;
-import djjtest.com.androiddemo.rv.VerticallyLooperLayoutManager;
+import djjtest.com.androiddemo.readexcel.ReadExcel;
 import djjtest.com.androiddemo.test.faf.FAFMain;
 import djjtest.com.androiddemo.test.nesttest.TestNest;
 import djjtest.com.androiddemo.test.nesttest.TestNest2;
 import djjtest.com.androiddemo.test.popanddilog.DilogFragment;
+import djjtest.com.androiddemo.test.sensor.SensorFragment;
+import djjtest.com.androiddemo.utils.CommonUtils;
 import me.drakeet.multitype.MultiTypeAdapter;
 
 public class MainTestActivity extends AppCompatActivity {
@@ -60,6 +61,19 @@ public class MainTestActivity extends AppCompatActivity {
                 TestNest2.invoke(getSupportFragmentManager());
             }
         });
+        addTest(" ReadExcel", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        CommonUtils.log(getFilesDir() + "/right.x1s");
+                        ReadExcel.read(getFilesDir() + "/right.x1s");
+                    }
+                }).run();
+            }
+        });
+        addTest(" 摇一摇传感器", (View v) -> SensorFragment.invoke(getSupportFragmentManager()));
     }
 
 
@@ -75,7 +89,7 @@ public class MainTestActivity extends AppCompatActivity {
         test();
         TestViewHolder.inject(mHeaderAndFooterAdapter);
 //        binding.testRv.setLayoutManager(new HorizontallyLooperLayoutManager());
-        binding.testRv.setLayoutManager(new VerticallyLooperLayoutManager());
+//        binding.testRv.setLayoutManager(new VerticallyLooperLayoutManager());
         binding.testRv.setAdapter(mHeaderAndFooterAdapter);
     }
 
