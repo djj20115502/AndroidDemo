@@ -113,4 +113,6 @@ dependencies {
     api project(path: ':bgarefreshlibrary')
     //java操纵excel的jar
     api files('libs/jxl.jar')
+    //cglib的jar https://github.com/cglib/cglib/releases/tag/RELEASE_3_3_0 带nodep的是包含了asm的
+    api files('libs/cglib-nodep-3.3.0.jar')
  }
