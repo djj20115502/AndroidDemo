@@ -5,14 +5,22 @@ public class Main {
     public static void main(String[] arg) {
 //        ContainsDuplicateIII.test();
 
-        ShortestSubarraywithSumatLeastK.test();
+//        ShortestSubarraywithSumatLeastK.test();
 //        print(-34|1);
 //        print(-34 & 3);
 //        print( 34 & 3);
 //        print( 1 ^ 1);
 //        print( -1 ^ 1);
 //        print( 1 ^ -1);
-//        print( -1 ^ -1);
+
+
+
+        print( (int)-1.1 ^ (int)-1.1);
+        print( (int)-1.1 ^ (int) 1.1);
+        print( (int) 1.1 ^ (int) 1.1);
+        print( (int) 0.1 ^ (int) 1.1);
+        print( (int) -0.1 ^ (int) 0.1);
+        print( (int) -0.1 ^ (int) -0.1);
 //        print( -34 ^ 0);
 //        print(  34 ^ 0);
 //        print( 0 ^ 0);

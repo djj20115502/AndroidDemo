@@ -25,61 +25,30 @@ import me.drakeet.multitype.MultiTypeAdapter;
 public class MainTestActivity extends AppCompatActivity {
 
     private void test() {
-        addTest("main", new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                MainActivity.invoke(mActivity);
-            }
-        });
-        addTest(" CoordinatorLayout", new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                CoordinatorLayoutFragment.invoke(getSupportFragmentManager());
-            }
-        });
-        addTest(" FAFMain", new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FAFMain.invoke(getSupportFragmentManager());
-            }
-        });
-        addTest(" DilogFragment", new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                DilogFragment.invoke(getSupportFragmentManager());
-            }
-        });
-        addTest(" TestNest", new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                TestNest.invoke(getSupportFragmentManager());
-            }
-        });
-        addTest(" TestNest2", new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                TestNest2.invoke(getSupportFragmentManager());
-            }
-        });
-        addTest(" ReadExcel", new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        CommonUtils.log(getFilesDir() + "/right.x1s");
-                        ReadExcel.read(getFilesDir() + "/right.x1s");
-                    }
-                }).run();
-            }
-        });
+        addTest("main", (v) -> MainActivity.invoke(mActivity));
+        addTest(" CoordinatorLayout",
+                (v) -> CoordinatorLayoutFragment.invoke(getSupportFragmentManager()));
+        addTest(" FAFMain", v -> FAFMain.invoke(getSupportFragmentManager()));
+        addTest(" DilogFragment", v -> DilogFragment.invoke(getSupportFragmentManager()));
+        addTest(" TestNest", v -> TestNest.invoke(getSupportFragmentManager()));
+        addTest(" TestNest2", v -> TestNest2.invoke(getSupportFragmentManager()));
+        addTest(" ReadExcel", v -> new Thread(() -> {
+            CommonUtils.log(getFilesDir() + "/right.x1s");
+            ReadExcel.read(getFilesDir() + "/right.x1s");
+        }).run());
         addTest(" 摇一摇传感器", (View v) -> SensorFragment.invoke(getSupportFragmentManager()));
+
+        for (int i = 0; i < 30; i++) {
+            addTest("" + i + CommonUtils.getTest() + "E", (View v) -> CommonUtils.showToast(this, "" + binding.testRv.getChildCount()));
+        }
+
     }
 
 
     MainTestBinding binding;
     HeaderAndFooterAdapter mHeaderAndFooterAdapter = new HeaderAndFooterAdapter();
     MainTestActivity mActivity;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -90,9 +59,17 @@ public class MainTestActivity extends AppCompatActivity {
         TestViewHolder.inject(mHeaderAndFooterAdapter);
 //        binding.testRv.setLayoutManager(new HorizontallyLooperLayoutManager());
 //        binding.testRv.setLayoutManager(new VerticallyLooperLayoutManager());
+        binding.testRv.setLayoutManager(new TestLM(this));
         binding.testRv.setAdapter(mHeaderAndFooterAdapter);
+
+
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+    }
 
     public MainTestActivity addTest(String title, View.OnClickListener onClickListener) {
         mHeaderAndFooterAdapter.getItems().add(new TestBean(title, onClickListener));

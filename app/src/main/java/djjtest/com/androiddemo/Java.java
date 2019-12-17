@@ -6,6 +6,8 @@ import java.util.Comparator;
 import java.util.Map;
 import java.util.TreeMap;
 
+import djjtest.com.androiddemo.test.aop.JavaDeveloper;
+
 /**
  * Author      :    DongJunJie
  * Date        :    2018/12/14
@@ -20,6 +22,7 @@ public class Java {
 //        System.out.println(getUnit(1));
 //        System.out.println(getUnit(1111111111));
 //        System.out.println(getUnit(111111));
+        JavaDeveloper.test();
 
     }
 

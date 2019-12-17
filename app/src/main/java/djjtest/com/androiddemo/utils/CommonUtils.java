@@ -41,6 +41,7 @@ public class CommonUtils {
         toast.setText(content);
         toast.show();
     }
+
     public static void log(Object... objects) {
         if (!Constants.IS_TEST) {
             return;
@@ -98,5 +99,16 @@ public class CommonUtils {
             }
         };
         return new InputFilter[]{new InputFilter.LengthFilter(18), inputFilter};
+    }
+
+
+    public static String getTest() {
+        int len = (int) (Math.random() * 20) + 1;
+        StringBuilder rt = new StringBuilder();
+        for (int i = 0; i < len; i++) {
+            rt.append("A");
+        }
+
+        return rt.toString();
     }
 }

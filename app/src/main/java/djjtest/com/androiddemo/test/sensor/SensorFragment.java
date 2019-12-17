@@ -6,6 +6,7 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.support.v4.app.FragmentManager;
+import android.view.View;
 
 import djjtest.com.androiddemo.test.BaseTestFragment;
 import djjtest.com.androiddemo.utils.CommonUtils;
@@ -22,6 +23,21 @@ public class SensorFragment extends BaseTestFragment {
     public void test() {
         addTest("打开传感器", (v) -> init());
         addTest("关闭", (v) -> unregisterListener());
+
+        binding.webView.setVisibility(View.VISIBLE);
+        binding.webView.loadData("<html>\n" +
+                "\n" +
+                "<head>\n" +
+                "<title>我的第一个 HTML 页面</title>\n" +
+                "</head>\n" +
+                "\n" +
+                "<body>\n" +
+                "<a href=\"comtgfkcwc://swings?id=5dc92d287d018624ec9a78c7&area=55\">sdffsdf</a>\n" +
+                "<p>body 元素的内容会显示在浏览器中。</p>\n" +
+                "<p>title 元素的内容会显示在浏览器的标题栏中。</p>\n" +
+                "</body>\n" +
+                "\n" +
+                "</html>", "text/html", "UTF-8");
     }
 
     SensorManager mSensorManager;
@@ -83,6 +99,7 @@ public class SensorFragment extends BaseTestFragment {
             lastAZ = az;
         }
     }
+
     int count = 0;
 
     private void recordShake(long mLastTimestamp, SensorEvent sensorEvent) {
