@@ -37,7 +37,9 @@ public class Cglib {
 
     public static void test() {
         CglibProxy cglibProxy = new CglibProxy();
-        PlayGame playGame = (PlayGame) cglibProxy.newInstall(new PlayGame());
+        PlayGame playGame1 = new PlayGame();
+        PlayGame playGame = (PlayGame) cglibProxy.newInstall(playGame1);
+        playGame1.play();
         playGame.play();
     }
 }
