@@ -3,7 +3,7 @@
 buildscript {
     ext.kotlin_version = '1.2.51'
     ext.butterknife_version = '8.2.1'
-    ext.supportLibraryVersion = '26.1.0'
+    ext.supportLibraryVersion = '28.0.0'
     ext.buildToolsVersion = '28.0.3'
     ext.compileSdkVersion = 28
 

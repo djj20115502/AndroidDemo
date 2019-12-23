@@ -13,6 +13,7 @@ import djjtest.com.androiddemo.base.BaseMultiTypeViewHolder;
 import djjtest.com.androiddemo.base.HeaderAndFooterAdapter;
 import djjtest.com.androiddemo.coordinatorLayout.CoordinatorLayoutFragment;
 import djjtest.com.androiddemo.databinding.MainTestBinding;
+import djjtest.com.androiddemo.flutter.FlutterPageActivity;
 import djjtest.com.androiddemo.readexcel.ReadExcel;
 import djjtest.com.androiddemo.test.faf.FAFMain;
 import djjtest.com.androiddemo.test.nesttest.TestNest;
@@ -36,11 +37,13 @@ public class MainTestActivity extends AppCompatActivity {
             CommonUtils.log(getFilesDir() + "/right.x1s");
             ReadExcel.read(getFilesDir() + "/right.x1s");
         }).run());
+        addTest(" flutter", v -> this.startActivity(FlutterPageActivity.getInvokeIntent(this))
+        );
         addTest(" 摇一摇传感器", (View v) -> SensorFragment.invoke(getSupportFragmentManager()));
 
-        for (int i = 0; i < 30; i++) {
-            addTest("" + i + CommonUtils.getTest() + "E", (View v) -> CommonUtils.showToast(this, "" + binding.testRv.getChildCount()));
-        }
+//        for (int i = 0; i < 30; i++) {
+//            addTest("" + i + CommonUtils.getTest() + "E", (View v) -> CommonUtils.showToast(this, "" + binding.testRv.getChildCount()));
+//        }
 
     }
 

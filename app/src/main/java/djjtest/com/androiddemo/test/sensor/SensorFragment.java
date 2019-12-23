@@ -32,7 +32,7 @@ public class SensorFragment extends BaseTestFragment {
                 "</head>\n" +
                 "\n" +
                 "<body>\n" +
-                "<a href=\"comtgfkcwc://swings?id=5dc92d287d018624ec9a78c7&area=55\">sdffsdf</a>\n" +
+                "<a href=\"comtgfkcwc://m.51kcwc.com/app?apppath=single_redpacket&redpack_trigger_id=5def04d6c894c0589157f356&distribute_id=5df337bec2300000dc005584\">sdffsdf</a>\n" +
                 "<p>body 元素的内容会显示在浏览器中。</p>\n" +
                 "<p>title 元素的内容会显示在浏览器的标题栏中。</p>\n" +
                 "</body>\n" +

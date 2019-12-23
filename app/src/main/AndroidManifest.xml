@@ -51,6 +51,7 @@
             </intent-filter>
         </activity>
         <activity android:name="djjtest.com.androiddemo.test.TA"></activity>
+        <activity android:name=".flutter.FlutterPageActivity" />
 
     </application>
 
