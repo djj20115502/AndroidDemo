@@ -1,0 +1,4 @@
+[submodule "flutter_module"]
+	path = flutter_module
+	url = git@github.com:djj20115502/flutter_module.git
+	branch = master
