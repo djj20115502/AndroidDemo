@@ -4,6 +4,7 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
 import android.view.View;
 import android.widget.Button;
 
@@ -75,7 +76,8 @@ public class MainTestActivity extends AppCompatActivity {
         test();
         TestViewHolder.inject(mHeaderAndFooterAdapter);
 //        binding.testRv.setLayoutManager(new HorizontallyLooperLayoutManager());
-        binding.testRv.setLayoutManager(new VerticallyLooperLayoutManager());
+        binding.testRv.setLayoutManager(new GridLayoutManager(this,3));
+//        binding.testRv.setLayoutManager(new VerticallyLooperLayoutManager());
         binding.testRv.setAdapter(mHeaderAndFooterAdapter);
     }
 
