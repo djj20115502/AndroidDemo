@@ -3,9 +3,9 @@ package com.example.network;
 import android.app.Activity;
 import android.app.Application;
 import android.os.Bundle;
-import android.support.annotation.CallSuper;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
+import androidx.annotation.CallSuper;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import android.text.TextUtils;
 
 import java.lang.reflect.Field;

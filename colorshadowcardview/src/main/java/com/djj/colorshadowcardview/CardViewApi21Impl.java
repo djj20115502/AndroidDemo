@@ -17,8 +17,8 @@ package com.djj.colorshadowcardview;
 
 import android.content.Context;
 import android.content.res.ColorStateList;
-import android.support.annotation.Nullable;
-import android.support.annotation.RequiresApi;
+import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import android.view.View;
 
 @RequiresApi(21)

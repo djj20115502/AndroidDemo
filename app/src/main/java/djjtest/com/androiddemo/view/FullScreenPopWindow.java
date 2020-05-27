@@ -2,9 +2,9 @@ package djjtest.com.androiddemo.view;
 
 import android.app.Activity;
 import android.graphics.Rect;
-import android.os.Build;
-import android.support.annotation.CallSuper;
-import android.support.annotation.RequiresApi;
+
+import androidx.annotation.CallSuper;
+import androidx.annotation.RequiresApi;
 import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;

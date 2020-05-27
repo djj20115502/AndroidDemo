@@ -1,10 +1,9 @@
 package djjtest.com.androiddemo.model;
 
-import android.support.annotation.CallSuper;
+import androidx.annotation.CallSuper;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
-import java.util.ArrayList;
 import java.util.HashMap;
 
 /**

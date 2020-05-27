@@ -1,6 +1,6 @@
 package djjtest.com.androiddemo.view;
 
-import android.databinding.BindingAdapter;
+import androidx.databinding.BindingAdapter;
 import android.net.Uri;
 import android.text.TextUtils;
 

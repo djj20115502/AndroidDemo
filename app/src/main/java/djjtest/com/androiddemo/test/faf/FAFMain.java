@@ -1,12 +1,11 @@
 package djjtest.com.androiddemo.test.faf;
 
 import android.graphics.Color;
-import android.support.v4.app.FragmentManager;
+import androidx.fragment.app.FragmentManager;
 
 import java.util.ArrayList;
 
 import djjtest.com.androiddemo.FragmentAdapter;
-import djjtest.com.androiddemo.FragmentStateAdapter;
 import djjtest.com.androiddemo.R;
 import djjtest.com.androiddemo.base.BaseDialogFragment;
 import djjtest.com.androiddemo.databinding.FafmainBinding;

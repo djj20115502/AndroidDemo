@@ -8,18 +8,18 @@
             type="djjtest.com.androiddemo.coordinatorLayout.CoordinatorLayoutFragment" />
     </data>
 
-    <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <android.support.design.widget.AppBarLayout
+        <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/coordinatorLayout_activity_appBarLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
-            <android.support.design.widget.CollapsingToolbarLayout
+            <com.google.android.material.appbar.CollapsingToolbarLayout
                 android:id="@+id/coordinatorLayout_activity_collapsingToolbarLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -52,7 +52,7 @@
                     android:textSize="40sp"
                     app:layout_collapseMode="parallax" />
 
-                <android.support.v7.widget.Toolbar
+                <androidx.appcompat.widget.Toolbar
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:layout_gravity="top"
@@ -64,8 +64,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="我是toolbar" />
-                </android.support.v7.widget.Toolbar>
-            </android.support.design.widget.CollapsingToolbarLayout>
+                </androidx.appcompat.widget.Toolbar>
+            </com.google.android.material.appbar.CollapsingToolbarLayout>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -73,7 +73,7 @@
                 android:text="appbar之内,collap之外"
                 android:textColor="#0f0" />
 
-            <android.support.v4.widget.NestedScrollView
+            <androidx.core.widget.NestedScrollView
                 android:id="@+id/n_scroll_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -112,8 +112,8 @@
                         android:textColor="#0f0"
                         android:textSize="200sp" />
                 </LinearLayout>
-            </android.support.v4.widget.NestedScrollView>
-        </android.support.design.widget.AppBarLayout>
+            </androidx.core.widget.NestedScrollView>
+        </com.google.android.material.appbar.AppBarLayout>
 
-    </android.support.design.widget.CoordinatorLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

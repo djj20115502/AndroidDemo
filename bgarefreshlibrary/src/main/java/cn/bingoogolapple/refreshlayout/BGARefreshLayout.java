@@ -19,11 +19,11 @@ import android.animation.ValueAnimator;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
-import android.support.design.widget.CoordinatorLayout;
-import android.support.v4.view.NestedScrollingChild2;
-import android.support.v4.view.NestedScrollingChildHelper;
-import android.support.v4.view.ViewCompat;
-import android.support.v7.widget.RecyclerView;
+
+import androidx.core.view.NestedScrollingChild2;
+import androidx.core.view.NestedScrollingChildHelper;
+import androidx.core.view.ViewCompat;
+import androidx.recyclerview.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.util.TypedValue;
@@ -40,7 +40,7 @@ import java.lang.reflect.Field;
 
 import cn.bingoogolapple.refreshlayout.util.BGARefreshScrollingUtil;
 
-import static android.support.v4.view.ViewCompat.TYPE_TOUCH;
+import static androidx.core.view.ViewCompat.TYPE_TOUCH;
 
 /**
  * 作者:王浩 邮件:bingoogolapple@gmail.com

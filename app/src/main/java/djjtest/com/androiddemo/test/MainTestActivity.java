@@ -1,10 +1,10 @@
 package djjtest.com.androiddemo.test;
 
-import android.databinding.DataBindingUtil;
+import androidx.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.GridLayoutManager;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
 import android.view.View;
 import android.widget.Button;
 
@@ -14,8 +14,6 @@ import djjtest.com.androiddemo.base.BaseMultiTypeViewHolder;
 import djjtest.com.androiddemo.base.HeaderAndFooterAdapter;
 import djjtest.com.androiddemo.coordinatorLayout.CoordinatorLayoutFragment;
 import djjtest.com.androiddemo.databinding.MainTestBinding;
-import djjtest.com.androiddemo.rv.HorizontallyLooperLayoutManager;
-import djjtest.com.androiddemo.rv.VerticallyLooperLayoutManager;
 import djjtest.com.androiddemo.test.faf.FAFMain;
 import djjtest.com.androiddemo.test.nesttest.TestNest;
 import djjtest.com.androiddemo.test.nesttest.TestNest2;

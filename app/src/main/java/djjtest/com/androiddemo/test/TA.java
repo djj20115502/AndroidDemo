@@ -1,23 +1,19 @@
 package djjtest.com.androiddemo.test;
 
-import android.app.Activity;
-import android.app.Application;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.widget.FrameLayout;
-import android.widget.PopupWindow;
 
 import djjtest.com.androiddemo.R;
 import djjtest.com.androiddemo.utils.CommonUtils;
-import djjtest.com.androiddemo.view.ScanQrCodeBuilder;
 import me.dm7.barcodescanner.core.ViewFinderView;
 import me.dm7.barcodescanner.zbar.Result;
 import me.dm7.barcodescanner.zbar.ZBarScannerView;
