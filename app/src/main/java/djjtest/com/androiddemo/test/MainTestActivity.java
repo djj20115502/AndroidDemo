@@ -1,12 +1,15 @@
 package djjtest.com.androiddemo.test;
 
-import androidx.databinding.DataBindingUtil;
 import android.os.Bundle;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.GridLayoutManager;
 import android.view.View;
 import android.widget.Button;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
+import androidx.recyclerview.widget.GridLayoutManager;
+
+import com.crashlytics.android.Crashlytics;
 
 import djjtest.com.androiddemo.MainActivity;
 import djjtest.com.androiddemo.R;
@@ -18,6 +21,7 @@ import djjtest.com.androiddemo.test.faf.FAFMain;
 import djjtest.com.androiddemo.test.nesttest.TestNest;
 import djjtest.com.androiddemo.test.nesttest.TestNest2;
 import djjtest.com.androiddemo.test.popanddilog.DilogFragment;
+import io.fabric.sdk.android.Fabric;
 import me.drakeet.multitype.MultiTypeAdapter;
 
 public class MainTestActivity extends AppCompatActivity {
@@ -59,6 +63,11 @@ public class MainTestActivity extends AppCompatActivity {
                 TestNest2.invoke(getSupportFragmentManager());
             }
         });
+        addTest(" first-error", (v) ->
+                Crashlytics.getInstance().crash()
+
+        );
+
     }
 
 
@@ -69,12 +78,13 @@ public class MainTestActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Fabric.with(this, new Crashlytics());
         binding = DataBindingUtil.setContentView(this, R.layout.main_test);
         mActivity = this;
         test();
         TestViewHolder.inject(mHeaderAndFooterAdapter);
 //        binding.testRv.setLayoutManager(new HorizontallyLooperLayoutManager());
-        binding.testRv.setLayoutManager(new GridLayoutManager(this,3));
+        binding.testRv.setLayoutManager(new GridLayoutManager(this, 3));
 //        binding.testRv.setLayoutManager(new VerticallyLooperLayoutManager());
         binding.testRv.setAdapter(mHeaderAndFooterAdapter);
     }
