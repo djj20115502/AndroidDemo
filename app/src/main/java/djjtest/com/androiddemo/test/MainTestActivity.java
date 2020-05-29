@@ -1,5 +1,9 @@
 package djjtest.com.androiddemo.test;
 
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -28,6 +32,7 @@ import djjtest.com.androiddemo.databinding.MainTestBinding;
 import djjtest.com.androiddemo.test.faf.FAFMain;
 import djjtest.com.androiddemo.test.nesttest.TestNest;
 import djjtest.com.androiddemo.test.nesttest.TestNest2;
+import djjtest.com.androiddemo.test.notification.NotificationFragment;
 import djjtest.com.androiddemo.test.popanddilog.DilogFragment;
 import djjtest.com.androiddemo.utils.CommonUtils;
 import io.fabric.sdk.android.Fabric;
@@ -106,7 +111,14 @@ public class MainTestActivity extends AppCompatActivity {
                 }
         );
 
+        addTest(" 消息", (v) -> {
+                    NotificationFragment.invoke(getSupportFragmentManager());
+                }
+        );
+
     }
+
+
 
 
     MainTestBinding binding;
