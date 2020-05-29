@@ -6,6 +6,7 @@ import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
 import djjtest.com.androiddemo.utils.CommonUtils;
+import djjtest.com.androiddemo.utils.NotificationUtils;
 
 /**
  * author   : dongjunjie.mail@qq.com
@@ -41,5 +42,9 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 remoteMessage.getTtl(),///2419200
                 remoteMessage.getSentTime());///1590722330923
 
+        NotificationUtils.showNotification(this,
+                remoteMessage.getNotification().getTitle(),
+                remoteMessage.getNotification().getBody(),
+                null);
     }
 }
