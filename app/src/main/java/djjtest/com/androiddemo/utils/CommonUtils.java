@@ -11,6 +11,8 @@ import android.widget.Toast;
 import java.lang.ref.WeakReference;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import djjtest.com.androiddemo.Constants;
 
@@ -41,22 +43,77 @@ public class CommonUtils {
         toast.setText(content);
         toast.show();
     }
+
+    public static String TAG = "DJJTEST";
+
     public static void log(Object... objects) {
-        if (!Constants.IS_TEST) {
+        log2(true, TAG, objects);
+    }
+
+    public static void log(Map map) {
+        Set<Map.Entry> set = map.entrySet();
+        StringBuilder sb = new StringBuilder();
+        for (Map.Entry entry : set) {
+            sb.append(entry.getKey()).append(" :").append(entry.getValue()).append(";");
+        }
+        log2(true, TAG, sb.toString());
+    }
+
+    public static void dLog(Object... objects) {
+        log2(false, TAG, objects);
+    }
+
+    public static void dLog(Map map) {
+        Set<Map.Entry> set = map.entrySet();
+        StringBuilder sb = new StringBuilder();
+        for (Map.Entry entry : set) {
+            sb.append(entry.getKey()).append(" :").append(entry.getValue()).append(";");
+        }
+        log2(false, TAG, sb.toString());
+    }
+
+    /**
+     * 封装打印LOG，方便观察更多细节
+     *
+     * @param releaseShow true 在release包也打印
+     * @param TAG         tag
+     * @param objects     需要打印的对象
+     */
+    public static void log2(boolean releaseShow, String TAG, Object... objects) {
+        if (!releaseShow && !Constants.IS_TEST) {
             return;
         }
         if (objects == null) {
             return;
         }
         StringBuilder sb = new StringBuilder();
+        Throwable a = new Throwable();
+        StackTraceElement[] traceElement = a.getStackTrace();
+        sb.append(" \n╔═════════════════════════════════");
+        sb.append("\n║➨➨at ");
+        sb.append(traceElement[2]);
+        sb.append("\n║➨➨➨➨at ");
+        sb.append(traceElement[3]);
+        sb.append("\n╟───────────────────────────────────\n");
+        sb.append("║");
         for (Object o : objects) {
             if (o != null) {
                 sb.append(o.toString());
-                sb.append("___");
+            } else {
+                sb.append("null");
             }
+            sb.append("___");
         }
-        Log.e("djjtest", sb.toString());
+        sb.append("\n╚═════════════════════════════════");
+        Log.e(TAG, sb.toString());
     }
+
+    public static boolean listIsNull(List list) {
+        return !(list != null && list.size() > 0);
+    }
+
+
+
 
     public static int dp2px(Resources resources, float dpValue) {
         final float scale = resources.getDisplayMetrics().density;

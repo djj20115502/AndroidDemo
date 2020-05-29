@@ -3,13 +3,21 @@ package djjtest.com.androiddemo.test;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.GridLayoutManager;
 
 import com.crashlytics.android.Crashlytics;
+import com.google.android.gms.common.GoogleApiAvailability;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import djjtest.com.androiddemo.MainActivity;
 import djjtest.com.androiddemo.R;
@@ -21,6 +29,7 @@ import djjtest.com.androiddemo.test.faf.FAFMain;
 import djjtest.com.androiddemo.test.nesttest.TestNest;
 import djjtest.com.androiddemo.test.nesttest.TestNest2;
 import djjtest.com.androiddemo.test.popanddilog.DilogFragment;
+import djjtest.com.androiddemo.utils.CommonUtils;
 import io.fabric.sdk.android.Fabric;
 import me.drakeet.multitype.MultiTypeAdapter;
 
@@ -66,6 +75,35 @@ public class MainTestActivity extends AppCompatActivity {
         addTest(" first-error", (v) ->
                 Crashlytics.getInstance().crash()
 
+        );
+        addTest(" showFBtoken", (v) -> {
+                    CommonUtils.log("showFBtoken");
+                    FirebaseInstanceId.getInstance().getInstanceId()
+                            .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
+                                @Override
+                                public void onComplete(@NonNull Task<InstanceIdResult> task) {
+                                    if (!task.isSuccessful()) {
+                                        CommonUtils.log("getInstanceId failed", task.getException());
+                                        return;
+                                    }
+                                    // Get new Instance ID token
+                                    String token = task.getResult().getToken();
+                                    CommonUtils.log("getInstanceId token", token);
+                                    Toast.makeText(MainTestActivity.this, token, Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                }
+
+        );
+        addTest(" makeGooglePlayServicesAvailable", (v) -> {
+                    GoogleApiAvailability.getInstance().makeGooglePlayServicesAvailable(mActivity);
+                    CommonUtils.log("makeGooglePlayServicesAvailable");
+                }
+
+        );
+        addTest(" setAutoInitEnabled", (v) -> {
+                    FirebaseMessaging.getInstance().setAutoInitEnabled(true);
+                }
         );
 
     }
