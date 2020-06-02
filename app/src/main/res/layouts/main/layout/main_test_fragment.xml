@@ -7,7 +7,7 @@
 
         <variable
             name="holder"
-            type="djjtest.com.androiddemo.test.MainTestActivity" />
+            type="djjtest.com.androiddemo.test.BaseTestFragment" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -23,10 +23,20 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/title"
             app:spanCount="3"
             tools:itemCount="4"
             tools:listitem="@layout/main_test_item" />
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:textSize="20sp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="TextView" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

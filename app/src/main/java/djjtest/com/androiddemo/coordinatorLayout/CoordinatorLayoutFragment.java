@@ -1,7 +1,7 @@
 package djjtest.com.androiddemo.coordinatorLayout;
 
-import android.support.design.widget.AppBarLayout;
-import android.support.v4.app.FragmentManager;
+import com.google.android.material.appbar.AppBarLayout;
+import androidx.fragment.app.FragmentManager;
 
 import djjtest.com.androiddemo.R;
 import djjtest.com.androiddemo.base.BaseDialogFragment;

@@ -1,6 +1,6 @@
 package djjtest.com.androiddemo.test.itemDecoration;
 
-import android.databinding.DataBindingUtil;
+import androidx.databinding.DataBindingUtil;
 import android.view.View;
 
 import djjtest.com.androiddemo.R;

@@ -1,13 +1,10 @@
 package djjtest.com.androiddemo.test.nesttest;
 
-import android.support.v4.app.FragmentManager;
+import androidx.fragment.app.FragmentManager;
 import android.widget.ImageView;
-
-import java.util.ArrayList;
 
 import djjtest.com.androiddemo.R;
 import djjtest.com.androiddemo.databinding.FragmentNestTest2Binding;
-import djjtest.com.androiddemo.databinding.FragmentNestTestBinding;
 import djjtest.com.androiddemo.utils.CommonUtils;
 import djjtest.com.androiddemo.view.CustomOnTextChooseDialog;
 import me.drakeet.multitype.MultiTypeAdapter;

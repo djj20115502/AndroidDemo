@@ -1,24 +1,18 @@
 package djjtest.com.androiddemo.view;
 
-import android.Manifest;
 import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
-import android.databinding.DataBindingUtil;
+import androidx.databinding.DataBindingUtil;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.AttributeSet;
 import android.util.TypedValue;
-import android.view.SurfaceView;
-import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.PopupWindow;
-
-import java.lang.reflect.Field;
 
 import djjtest.com.androiddemo.R;
 import djjtest.com.androiddemo.utils.CommonUtils;

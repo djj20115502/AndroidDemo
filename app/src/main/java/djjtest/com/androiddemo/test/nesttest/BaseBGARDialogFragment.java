@@ -1,8 +1,8 @@
 package djjtest.com.androiddemo.test.nesttest;
 
 
-import android.databinding.ViewDataBinding;
-import android.support.annotation.CallSuper;
+import androidx.databinding.ViewDataBinding;
+import androidx.annotation.CallSuper;
 import android.view.View;
 
 import java.util.ArrayList;
